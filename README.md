@@ -25,7 +25,7 @@ Train Like a Trainer is built using the MERN stack, which stands for MongoDB, Ex
 
 To run Train Like a Trainer locally on your machine, follow these steps:
 
-1. **Clone the Repository:** 
+1. **Clone the Repository:** git clone https://github.com/kalviumcommunity/S51_JesudasZion_Capstone_TrainLikeTrainer.git
 
 2. **Navigate to the Project Directory:**
 
