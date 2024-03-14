@@ -1,14 +1,21 @@
-const express = require("express")
-require("dotenv").config()
-//Creating express application
-const app = express()
+const express = require("express");
+require("dotenv").config();
 
-//Home Route
-app.get("/" , (req , res)=>{
-    res.send("Hello World")
-})
+const app = express();
 
-// Starting the server
-app.listen(process.env.API_PORT,()=>{
-    console.log("\x1b[32m|| Server is Running ||\x1b[0m")
-})
+// Home Route
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+// Starting the server with error handling
+const server = app.listen(process.env.API_PORT, () => {
+  const port = server.address().port;
+  console.log(`\x1b[32m|| Server is Running on Port ${port} ||\x1b[0m`);
+});
+
+console.log(server)
+// Error handling for server setup
+server.on("error", (error) => {
+  console.error("Server setup error:", error);
+});
