@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+nav{
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.naviga{
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+}
+.nav_buttons{
+    display: flex;
+    width: 20%;
+    justify-content:right;
+    
+}
+
+nav img{
+    height: 90%;
+    justify-self: center;
+}
+
+.buttonStyle{
+    height: 40px;
+    width: 80px;
+    border: unset;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login_button{
+    background-color: transparent;
+    border: 2px solid #244B76;
+    color: #244B76;
+    margin-right: 20px;
+}
+
+#signUp_button{
+    background-color: #244B76;
+    border: 2px white solid;
+    color: white;
+}
+
+.nav {
+  font-family: 'Titillium Web';
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+}
+
+.nav * {
+  box-sizing: border-box;
+  transition: all .35s ease;
+}
+
+.nav li {
+  display: inline-block;
+  list-style: outside none none;
+  /* margin: .5em 1em; */
+  padding: 0;
+}
+
+.nav .anchore {
+  padding: .5em .8em;
+  color: grey;
+  position: relative;
+  text-decoration: none;
+  /* font-size: 20px; */
+}
+
+.nav .anchore::before,
+.nav .anchore::after {
+  content: '';
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  transition: all .35s ease;
+  opacity: 0;
+}
+
+.nav .anchore::before {
+  content: '';
+  right: 0;
+  top: 0;
+  border-top: 3px solid #215e97;
+  border-right: 3px solid #0f2d64;
+  transform: translate(-100%, 50%);
+}
+
+.nav .anchore:after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  border-bottom: 3px solid #0f3964;
+  border-left: 3px solid #215e97;
+  transform: translate(100%, -50%)
+}
+
+.nav .anchore:hover:before,
+.nav .anchore:hover:after{
+  transform: translate(0,0);
+  opacity: 1;
+}
+
+.nav .anchore:hover {
+  color: #1e63ae;
+}
