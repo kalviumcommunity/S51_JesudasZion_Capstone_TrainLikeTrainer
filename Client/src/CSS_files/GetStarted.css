@@ -1,0 +1,128 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+nav{
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 170px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    position: sticky;
+    top: 0;
+}
+
+.buttonStyle{
+    height: 40px;
+    width: 80px;
+    border: unset;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login_button{
+    background-color: transparent;
+    border: 2px solid #244B76;
+    color: #244B76;
+    margin-right: 20px;
+}
+
+#login_button:hover{
+    background-color: rgb(245, 245, 245);
+}
+
+#signUp_button{
+    background-color: #244B76;
+    border: 2px white solid;
+    color: white;
+}
+
+.logo{
+    height: 90%;
+}
+#get_main{
+    display: flex;
+    padding: 0px 170px;
+    justify-content: space-between;
+}
+
+#get_content{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.biggeer{
+    font-size: calc(min(max(28px, 3.8vw), 64px));
+    font-weight: 700;
+}
+
+.bluer{
+    color: rgb(7, 82, 162);
+}
+.img1_get{
+    width: 85%;
+    height: 75%;
+    border-top: 2px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 2px solid black;
+    border-radius: 20px;
+}
+
+#img_get_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.sun_bigger{
+    font-size: calc(min(max(16px, 1.8vw), 22px));
+    margin-top: 25px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+.get_button{
+    background-color: #244B76;
+    color: white;
+    padding: 20px 40px;
+    border: unset;
+    border-radius: 6px;
+    width: 300px;
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+#get_category{
+    display: flex;
+    width: 100%;
+    padding: 20px 170px;
+    justify-content: space-between;
+    align-items: center;
+}
+.games_get{
+    display: flex;
+    align-items: center;
+    font-size: large;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.icons{
+    height: 50px;
+    width: 50px;
+}
+
+.leftttt{
+    margin-left: 170px;
+    margin-bottom: 20px;
+}

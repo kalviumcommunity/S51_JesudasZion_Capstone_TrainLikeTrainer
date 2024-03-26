@@ -26,10 +26,10 @@ nav{
     
 }
 
-nav img{
+/* nav img{
     height: 90%;
     justify-self: center;
-}
+} */
 
 .buttonStyle{
     height: 40px;
@@ -116,4 +116,9 @@ nav img{
 
 .nav .anchore:hover {
   color: #1e63ae;
+}
+
+button:hover{
+  cursor: pointer;
+  opacity: 90%;
 }
