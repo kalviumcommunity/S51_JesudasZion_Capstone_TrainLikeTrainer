@@ -6,6 +6,7 @@
 }
 nav{
     height: 70px;
+    /* width: 100vw; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +14,7 @@ nav{
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     position: sticky;
     top: 0;
+    background-color: white;
 }
 
 .buttonStyle{
@@ -126,3 +128,125 @@ nav{
     margin-left: 170px;
     margin-bottom: 20px;
 }
+
+/* secound page css ---------------------------------------------------------- */
+
+#info_get{
+    padding: 0 20%;
+    margin-top: 15px;
+    text-align: center;
+
+}
+
+.head_info{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#headdonw{
+    margin-bottom: 16px;
+}
+
+.bolder1{
+    font-weight: bold;
+}
+.sub_info{
+    max-width: 900px;
+    font-size: 20px;
+    color: #525252;
+    line-height: 1.55;
+}
+
+.info_div{
+    display: flex;
+    margin-top: 100px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.imgSize{
+    width: 30%;
+    border-top: 2px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 2px solid black;
+    border-radius: 20px;
+}
+
+.word_info{
+    text-align: left;
+    width: 50%;
+}
+
+#get_quote{
+    background-color:#244B76;
+    color: white;
+    text-align: center;
+    padding: 30px 200px;
+    margin-top: 50px;
+    font-size: x-large;
+    font-weight: bold;
+    border-top: 2px solid #525252;
+    border-bottom: 2px solid #525252;
+    margin-bottom: 50px;
+}
+
+.footer{
+    background:#000;
+    padding:30px 0px;
+    font-family: 'Play', sans-serif;
+    text-align:center;
+    margin-top: 50px;
+    }
+    
+    .footer .row{
+    width:100%;
+    margin:1% 0%;
+    padding:0.6% 0%;
+    color:gray;
+    font-size:0.8em;
+    }
+    
+    .footer .row a{
+    text-decoration:none;
+    color:gray;
+    transition:0.5s;
+    }
+    
+    .footer .row a:hover{
+    color:#fff;
+    }
+    
+    .footer .row ul{
+    width:100%;
+    }
+    
+    .footer .row ul li{
+    display:inline-block;
+    margin:0px 30px;
+    }
+    
+    .footer .row a i{
+    font-size:2em;
+    margin:0% 1%;
+    }
+    
+    .foot_icon{
+        font-size: 30px;
+    }
+    
+    @media (max-width:720px){
+    .footer{
+    text-align:left;
+    padding:5%;
+    }
+    .footer .row ul li{
+    display:block;
+    margin:10px 0px;
+    text-align:left;
+    }
+    .footer .row a i{
+    margin:0% 3%;
+    }
+    }

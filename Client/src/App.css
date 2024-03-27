@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+/* #root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+} */
 nav{
     height: 70px;
     display: flex;
