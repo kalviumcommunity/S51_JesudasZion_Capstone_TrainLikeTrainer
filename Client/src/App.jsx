@@ -9,13 +9,12 @@ function App() {
   return (
 
     <>
-      {/* <GetStarted></GetStarted> */}
-      <Register></Register>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home/>} ></Route>
+          <Route path='/' element={<GetStarted/>} ></Route>
+          <Route path='/reg/:form' element={<Register/>}></Route>
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </>
   )
 }

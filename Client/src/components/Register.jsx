@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import '../CSS_files/Register.css'; // Import CSS file
 import img1 from "../assets/img_login.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import img_google from "../assets/GoogleIcon.webp"
+import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
+
 const Register = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState('');
@@ -12,16 +16,55 @@ const Register = () => {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { form } = useParams();
+
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    // Here you can implement the login functionality
+
+    if (loginEmail.trim() === '' || loginPassword.trim() === '') {
+      toast.error('Email and password are required', {
+        position: 'top-right',
+        autoClose: 5000
+      });
+      return;
+    }
+    
     console.log('Logging in with:', loginEmail, loginPassword);
   };
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Here you can implement the signup functionality
+
+    if (signupName.trim() === '' || signupEmail.trim() === '' || signupPassword.trim() === '' || confirmPassword.trim() === '') {
+
+
+      toast.error('All fields are required', {
+        position: 'top-right',
+        autoClose: 5000
+      });
+      return;
+    }
+  
+    if (signupPassword !== confirmPassword) {
+      toast.error('Passwords do not match', {
+        position: 'top-right',
+        autoClose: 5000
+      });
+      return;
+    }
+  
+    // Password validation
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(signupPassword)) {
+      toast.error('Password must contain at least 8 characters, one number, and one symbol', {
+        position: 'top-right',
+        autoClose: 5000
+      });
+      return;
+    }
+
+
     console.log('Signing up with:', signupName, signupEmail, signupPassword, confirmPassword);
   };
 
@@ -29,11 +72,16 @@ const Register = () => {
     setIsLogin(!isLogin);
   };
 
+  useEffect(() => {
+    console.log(form)
+    setIsLogin(form == 'login');
+  }, [form]);
+
   return (
     <div  className="container">
       <img id='login_img' src={img1} alt="" />  
       {isLogin ? (
-        <form onSubmit={handleLoginSubmit} className="form">
+        <form onSubmit={handleLoginSubmit} className="form" noValidate>
           <h2>Login</h2>
           <div id='login_type'>
             <div className="login_methods">
@@ -76,7 +124,7 @@ const Register = () => {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleSignupSubmit} className="form">
+        <form onSubmit={handleSignupSubmit} className="form" noValidate>
           <h2>Sign Up</h2>
 
           <div id='login_type'>
@@ -137,7 +185,10 @@ const Register = () => {
           </div>
         </form>
       )}
+       <ToastContainer />
     </div>
+
+    
   );
 };
 
