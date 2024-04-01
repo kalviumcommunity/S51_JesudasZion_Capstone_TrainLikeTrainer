@@ -16,6 +16,9 @@ nav{
     top: 0;
     background-color: white;
 }
+a{
+    text-decoration: none;
+}
 
 .buttonStyle{
     height: 40px;
@@ -139,7 +142,7 @@ nav{
 }
 
 .head_info{
-    font-size: 30px;
+    font-size: calc(min(max(28px, 3.8vw), 34px));
     font-weight: bold;
 }
 
@@ -152,7 +155,7 @@ nav{
 }
 .sub_info{
     max-width: 900px;
-    font-size: 20px;
+    font-size: calc(min(max(16px, 1.8vw), 22px));
     color: #525252;
     line-height: 1.55;
 }
@@ -236,17 +239,116 @@ nav{
         font-size: 30px;
     }
     
-    @media (max-width:720px){
-    .footer{
-    text-align:left;
-    padding:5%;
+
+    @media screen and (min-width: 200px) and (max-width: 1024px) {
+        nav{
+            padding: 0 7%;
+        }
+
+        #get_main {
+            padding: 0 7%;
+        }
+
+        #get_category{
+            padding: 20px 7%;
+        } 
+        .leftttt{
+            margin-left: 7%;
+        }
+        #get_quote{
+            padding: 30px 7%;
+            font-size: larger;
+        }
+        #info_get{
+            font-size: 0.8rem;
+            padding: 0px 7%;
+        }
+
     }
-    .footer .row ul li{
-    display:block;
-    margin:10px 0px;
-    text-align:left;
-    }
-    .footer .row a i{
-    margin:0% 3%;
-    }
+
+    @media screen and (min-width: 484px) and (max-width: 769px){
+        .get_button{
+            width: 100%;
+        }
+        #get_category{
+            flex-wrap: wrap;
+            justify-content: left;
+
+        }
+        .games_get{
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .leftttt{
+            margin-top: 20px;
+        }
+        #get_quote{
+            padding: 30px 7%;
+            font-size: small;
+        }
+        .head_info{
+            font-size: medium;
+        }
+        .sub_info{
+            font-size: small;
+        }
+        .imgSize{
+            width: 40%;
+        }
+        #img_get_div{
+            width: 40%;
+        }
+        #get_content{
+            width: 50%;
+        }
+
+        .footer .row{
+            display: flex;
+            justify-content: center;
+        }
+
+    } 
+
+    @media screen and (max-width: 483px){
+        nav{
+            padding: 0;
+        }
+        .get_button{
+            width: 100%;
+        }
+        .logo{
+            width: 100px;
+            height: 55%;
+        }
+        .leftttt{
+            margin-top: 20px;
+        }
+        #get_content{
+            width: 95%;
+        }
+        #img_get_div{
+            display: none;
+        }
+        
+        #info_get{
+            font-size: 0.8rem;
+            padding: 0px 3%;
+        }
+        #get_category{
+            flex-wrap: wrap;
+            justify-content: left;
+
+        }
+        .imgSize{
+            display: none;
+        }
+        .word_info{
+            text-align: center;
+            width: 100%;
+            font-size: medium;
+        }
+        .info_div{
+            justify-content: center;
+        }
     }

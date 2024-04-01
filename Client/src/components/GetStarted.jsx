@@ -14,6 +14,7 @@ import "../CSS_files/GetStarted.css"
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom'
 
 function GetStarted() {
   return (
@@ -21,8 +22,8 @@ function GetStarted() {
         <nav>
             <img className='logo' src={logo} alt="" />
             <div>
-                <button id='login_button' className='buttonStyle'>Login</button>
-                <button id='signUp_button' className='buttonStyle'>Sign up</button>
+                <Link to="/reg/login"><button  id='login_button' className='buttonStyle'>Login</button></Link>
+                <Link to="/reg/signup"> <button  id='signUp_button' className='buttonStyle'>Sign up</button></Link>
             </div>
         </nav>
 
