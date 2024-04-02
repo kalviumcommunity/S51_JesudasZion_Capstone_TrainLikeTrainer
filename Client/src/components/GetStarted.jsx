@@ -14,9 +14,45 @@ import "../CSS_files/GetStarted.css"
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate } from 'react-router-dom'
+import { useState ,useEffect } from 'react'
+import axios from 'axios'
 
 function GetStarted() {
+
+  const navigate = useNavigate()
+  function getCookie(name) {
+
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].split('=');
+      if (cookie[0] === name) {
+        return cookie[1];
+      }
+    }
+    return null;
+  }
+  const [token,setToken] = useState(getCookie("token"))
+
+  const fetchProtectedData = async () => {
+    
+
+    try {
+      const response = await axios.post('http://localhost:3000/protected',{"token" :getCookie("token")});
+      console.log('Protected data:', response.data);
+      if (response.data.authenticated){
+        navigate("/home")
+      }
+    } catch (error) {
+      console.error('Failed to fetch protected data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProtectedData();
+  }, [token]);
+
   return (
     <>
         <nav>
