@@ -2,8 +2,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Login = require('../schema/loginSchema');
-
+const cors = require('cors');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+
+router.use(cors());
+router.use(cookieParser())
 
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
@@ -23,6 +27,7 @@ router.post('/', async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign({ email }, process.env.SECRET_TOKEN);
+        res.cookie('token', token, { httpOnly: true })
         res.json({ token });
     } catch (error) {
         console.error(error);

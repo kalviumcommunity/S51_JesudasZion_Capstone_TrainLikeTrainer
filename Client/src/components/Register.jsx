@@ -4,11 +4,16 @@ import img1 from "../assets/img_login.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import img_google from "../assets/GoogleIcon.webp"
-import { useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
+
+import axios from "axios"
+
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 
 const Register = () => {
+  const navigate = useNavigate()
+
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -16,10 +21,29 @@ const Register = () => {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [token , setToken] = useState("")
   const { form } = useParams();
 
+  function setCookie(name, value, expiresInDays) {
+    const date = new Date();
+    date.setTime(date.getTime() + (expiresInDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
+  }
+  function getCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].split('=');
+      if (cookie[0] === name) {
+        return cookie[1];
+      }
+    }
+    return null;
+  }
+  
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
     if (loginEmail.trim() === '' || loginPassword.trim() === '') {
@@ -29,8 +53,20 @@ const Register = () => {
       });
       return;
     }
-    
-    console.log('Logging in with:', loginEmail, loginPassword);
+    try {
+      const response = await axios.post('http://localhost:3000/login', {
+        email: loginEmail,
+        password: loginPassword
+      });
+  
+      setToken( response.data.token);
+      setCookie("token",response.data.token,10)
+      
+  
+  
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   const handleSignupSubmit = (e) => {
@@ -68,14 +104,33 @@ const Register = () => {
     console.log('Signing up with:', signupName, signupEmail, signupPassword, confirmPassword);
   };
 
+  const fetchProtectedData = async () => {
+    try {
+      // Make a GET request to the protected route
+
+      const response = await axios.post('http://localhost:3000/protected',{"token" :getCookie("token")});
+  
+      // Handle the response
+      console.log('Protected data:', response.data);
+      // if (response.data.)
+      if (response.data.authenticated){
+        navigate("/home")
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('Failed to fetch protected data:', error);
+    }
+  };
+
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
   useEffect(() => {
-    console.log(form)
+    console.log(token)
+    fetchProtectedData()
     setIsLogin(form == 'login');
-  }, [form]);
+  }, [form , token]);
 
   return (
     <div  className="container">

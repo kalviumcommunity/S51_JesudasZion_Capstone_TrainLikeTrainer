@@ -3,11 +3,17 @@ const { startDatabase, stopDatabase, isConnected } = require('./db');
 require("dotenv").config();
 
 
-
+const cors = require('cors');
 
 const app = express();
 app.use(express.json())
 
+
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace this with the actual origin of your frontend application
+  credentials: true // Allow credentials (cookies)
+};
+app.use(cors(corsOptions));
 // Home Route
 app.get("/", (req, res) => {
   res.send(`Welcome and DB is ${isConnected() ? 'connected' : 'disconnected'}`);
@@ -22,11 +28,14 @@ app.get("/", (req, res) => {
 // Import route handlers
 const signupRouter = require('./Routes/signupRoute');
 const loginRouter = require('./Routes/loginRoute');
+const protected = require("./Routes/protected")
 
 
 // Route handlers
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/protected', protected);
+
 
 
 // Starting the server with error handling
