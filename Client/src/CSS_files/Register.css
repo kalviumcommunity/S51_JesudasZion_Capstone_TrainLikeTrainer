@@ -178,3 +178,77 @@
       padding: 0 10%;
     }
   }
+
+  /* OTP Popup Styles */
+.otp-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  
+
+}
+#green_tab{
+  background-color: rgb(182, 227, 182);
+  color: green;
+  border: 2px solid green;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin-top: 20px;
+  margin-bottom:20px ;
+}
+.otp-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 80%;
+  
+}
+
+
+
+.otp-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.otp-submit-button,
+.otp-close-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.otp-submit-button {
+  background-color:black;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#pop_buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.otp-close-button {
+  background-color:white;
+  color: black;
+  font-weight: 500;
+  border: rgb(97, 96, 96) solid 2px;
+}
+

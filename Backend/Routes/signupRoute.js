@@ -1,12 +1,14 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Login = require('../schema/loginSchema');
+const nodemailer = require('nodemailer')
+require('dotenv').config()
 
 const router = express.Router();
 
+
 router.post('/', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { email } = req.body;
 
     try {
         // Check if email already exists
@@ -15,20 +17,51 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'Email already exists' });
         }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const code = generateVerificationCode()
+        console.log(code)
+        sendVerificationEmail(email,code)
+        const code_jwt = jwt.sign({code : code}, process.env.OTP_TOKEN, {algorithm : 'HS256'})
+        res.json({message : 'Mail Send' , code : code_jwt})
 
-        // Create new user
-        const newUser = new Login({ name, email, password: hashedPassword });
-        await newUser.save();
-
-        // Generate JWT token
-        const token = jwt.sign({ email }, process.env.SECRET_TOKEN);
-        res.json({ token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+function sendVerificationEmail(email, code) {
+    // Configure nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port : 465,
+      secure : true ,
+      auth: {
+        user: 'jesudaszion203@gmail.com',
+        pass: process.env.PASSWORD,
+      },
+    });
+  
+    // Email content
+    const mailOptions = {
+      from: 'jesudaszion203@gmail.com',
+      to: email,
+      subject: 'Email Verification',
+      text: `Your verification code is: ${code}`,
+    };
+  
+    // Send mail
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
+  }
+  
+  function generateVerificationCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
 
 module.exports = router;

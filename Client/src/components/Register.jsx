@@ -1,8 +1,8 @@
-import React, { useState ,useEffect} from 'react';
-import '../CSS_files/Register.css'; // Import CSS file
+import React, { useState , useEffect} from 'react';
+import '../CSS_files/Register.css';
 import img1 from "../assets/img_login.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import img_google from "../assets/GoogleIcon.webp"
 import {  useNavigate, useParams } from 'react-router-dom';
 
@@ -12,7 +12,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 
 const Register = () => {
+
   const navigate = useNavigate()
+  const { form } = useParams();
 
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState('');
@@ -21,8 +23,9 @@ const Register = () => {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showOTP, setShowOTP] = useState(true); // State to manage OTP popup visibility
+  const [otp, setOtp] = useState(''); // State to manage OTP input
   const [token , setToken] = useState("")
-  const { form } = useParams();
 
   function setCookie(name, value, expiresInDays) {
     const date = new Date();
@@ -30,6 +33,7 @@ const Register = () => {
     const expires = "expires=" + date.toUTCString();
     document.cookie = name + "=" + value + "; " + expires + "; path=/";
   }
+
   function getCookie(name) {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
@@ -41,7 +45,6 @@ const Register = () => {
     }
     return null;
   }
-  
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -57,23 +60,26 @@ const Register = () => {
       const response = await axios.post('http://localhost:3000/login', {
         email: loginEmail,
         password: loginPassword
-      });
+      })
   
       setToken( response.data.token);
       setCookie("token",response.data.token,10)
-      
-  
-  
+
+      // Show OTP popup after successful login
+      setShowOTP(true);
     } catch (error) {
+      toast.error(error.response.data.message, {
+        position: 'top-right',
+        autoClose: 5000
+      })
       console.error('Error logging in:', error);
     }
   };
 
-  const handleSignupSubmit = (e) => {
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
 
     if (signupName.trim() === '' || signupEmail.trim() === '' || signupPassword.trim() === '' || confirmPassword.trim() === '') {
-
 
       toast.error('All fields are required', {
         position: 'top-right',
@@ -99,9 +105,24 @@ const Register = () => {
       });
       return;
     }
+    try {
+      const response = await axios.post('http://localhost:3000/signup', {
+        email: signupEmail,
+      })
+  
+      setOtp(response.data.token);
 
+      // Show OTP popup after successful login
+      setShowOTP(true);
 
-    console.log('Signing up with:', signupName, signupEmail, signupPassword, confirmPassword);
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: 'top-right',
+        autoClose: 5000
+      })
+      console.error('Error logging in:', error);
+    }
+    
   };
 
   const fetchProtectedData = async () => {
@@ -124,6 +145,33 @@ const Register = () => {
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
+  };
+
+  const handleOTPSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/otpVerify', {
+        email: signupEmail,
+        password: signupPassword,
+        name : signupName ,
+        verifyCode : otp,
+         
+
+      })
+  
+      setToken( response.data.token);
+      setCookie("token",response.data.token,10)
+
+      // Show OTP popup after successful login
+      setShowOTP(true);
+    } catch (error) {
+      toast.error(error.response.data.message, {
+        position: 'top-right',
+        autoClose: 5000
+      })
+      console.error('Error logging in:', error);
+    }
+
+    setShowOTP(false);
   };
 
   useEffect(() => {
@@ -240,10 +288,32 @@ const Register = () => {
           </div>
         </form>
       )}
-       <ToastContainer />
-    </div>
 
-    
+      {/* OTP Popup */}
+      {showOTP && (
+        <div className="otp-popup">
+          <div className="otp-content">
+            <h1>OTP Verification</h1>
+            <div id='green_tab'>
+              <p>We have sent the Verification code to you Via email , check and fill below .</p>
+            </div>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className="otp-input"
+            />
+            <div id='pop_buttons'>
+            <button onClick={handleOTPSubmit} className="otp-submit-button">Submit</button>
+            <button onClick={() => setShowOTP(false)} className="otp-close-button">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ToastContainer />
+    </div>
   );
 };
 
