@@ -29,12 +29,15 @@ app.get("/", (req, res) => {
 const signupRouter = require('./Routes/signupRoute');
 const loginRouter = require('./Routes/loginRoute');
 const protected = require("./Routes/protected")
+const optVerify = require("./Routes/optVerifyRoute")
+
 
 
 // Route handlers
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/protected', protected);
+app.use("/optVerify", optVerify)
 
 
 
