@@ -7,18 +7,9 @@ require('dotenv').config()
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const { name, email, password ,code , verifyCode} = req.body;
+    const { name, email, password} = req.body;
 
     try {
-        if (!code) {
-            return res.status(400).json({ message: 'OTP are required.' });
-          }
-
-          const decoded_token = jwt.decode(verifyCode, process.env.OTP_TOKEN, algorithms=['HS256'])
-          if (!code == decoded_token){
-            return res.status(400).json({ message: 'Invalid OTP.' });
-          }
-        
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import img_google from "../assets/GoogleIcon.webp"
 import {  useNavigate, useParams } from 'react-router-dom';
+import emailjs from "emailjs-com"
 
 import axios from "axios"
 
@@ -23,9 +24,10 @@ const Register = () => {
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showOTP, setShowOTP] = useState(true); // State to manage OTP popup visibility
+  const [showOTP, setShowOTP] = useState(false); // State to manage OTP popup visibility
   const [otp, setOtp] = useState(''); // State to manage OTP input
-  const [token , setToken] = useState("")
+  const [userOtp , setUserOtp] = useState("")
+  const [token , setToken ] = useState('')
 
   function setCookie(name, value, expiresInDays) {
     const date = new Date();
@@ -105,15 +107,34 @@ const Register = () => {
       });
       return;
     }
+   
+
     try {
       const response = await axios.post('http://localhost:3000/signup', {
         email: signupEmail,
       })
   
-      setOtp(response.data.token);
+      setOtp(response.data.code);
 
       // Show OTP popup after successful login
       setShowOTP(true);
+
+      var templateParams = {
+        name: signupName,
+        user_email : signupEmail,
+        otp : response.data.code
+      };
+      console.log(templateParams)
+      
+      emailjs.send(  'service_znoqnu9', 'template_sa0krxc', templateParams ,"p0rladLzqmm7DUGVF").then(
+        (response) => {
+          console.log(templateParams)
+          console.log('SUCCESS!', response.status, response.text ,response);
+        },
+        (error) => {
+          console.log('FAILED...', error);
+        },
+      );
 
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -122,6 +143,7 @@ const Register = () => {
       })
       console.error('Error logging in:', error);
     }
+    
     
   };
 
@@ -148,30 +170,36 @@ const Register = () => {
   };
 
   const handleOTPSubmit = async () => {
-    try {
-      const response = await axios.post('http://localhost:3000/otpVerify', {
-        email: signupEmail,
-        password: signupPassword,
-        name : signupName ,
-        verifyCode : otp,
-         
 
-      })
+    if (otp == userOtp){
+      try {
+        const response = await axios.post('http://localhost:3000/optVerify', {
+          email: signupEmail,
+          password: signupPassword,
+          name : signupName ,
+        })
+    
+        setToken( response.data.token);
+        setCookie("token",response.data.token,10)
   
-      setToken( response.data.token);
-      setCookie("token",response.data.token,10)
-
-      // Show OTP popup after successful login
-      setShowOTP(true);
-    } catch (error) {
-      toast.error(error.response.data.message, {
+        // Show OTP popup after successful login
+        setShowOTP(false);
+      } catch (error) {
+        toast.error(error.response.data.message, {
+          position: 'top-right',
+          autoClose: 5000
+        })
+        console.error('Error logging in:', error);
+      }
+  
+      setShowOTP(false);
+    }else{
+      toast.error('Incorrect Otp', {
         position: 'top-right',
         autoClose: 5000
-      })
-      console.error('Error logging in:', error);
+      });
     }
-
-    setShowOTP(false);
+    
   };
 
   useEffect(() => {
@@ -300,8 +328,8 @@ const Register = () => {
             <input
               type="text"
               placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              value={userOtp}
+              onChange={(e) => setUserOtp(e.target.value)}
               className="otp-input"
             />
             <div id='pop_buttons'>
