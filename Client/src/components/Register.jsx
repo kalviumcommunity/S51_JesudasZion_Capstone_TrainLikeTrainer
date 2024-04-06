@@ -28,6 +28,10 @@ const Register = () => {
   const [otp, setOtp] = useState(''); // State to manage OTP input
   const [userOtp , setUserOtp] = useState("")
   const [token , setToken ] = useState('')
+  const [showOTPPass, setShowOTPPass] = useState(false)
+  const [showNewPass , setShowNewPass] = useState(false)
+  const [userNewPass ,setUserNewPass] = useState('')
+  const [userNewPassCon , setUserNewPassCon] = useState('')
 
   function setCookie(name, value, expiresInDays) {
     const date = new Date();
@@ -202,6 +206,40 @@ const Register = () => {
     
   };
 
+  const handleOTPPassSubmit = async () => {
+    setShowNewPass(true)
+    setShowOTPPass(false)
+    if (otp == userOtp){
+      try {
+        const response = await axios.post('http://localhost:3000/optVerify', {
+          email: loginEmail,
+          password: signupPassword,
+          name : signupName ,
+        })
+    
+        setToken( response.data.token);
+        setCookie("token",response.data.token,10)
+  
+        // Show OTP popup after successful login
+        setShowOTP(false);
+      } catch (error) {
+        toast.error(error.response.data.message, {
+          position: 'top-right',
+          autoClose: 5000
+        })
+        console.error('Error logging in:', error);
+      }
+  
+      setShowOTP(false);
+    }else{
+      toast.error('Incorrect Otp', {
+        position: 'top-right',
+        autoClose: 5000
+      });
+    }
+    
+  };
+
   useEffect(() => {
     console.log(token)
     fetchProtectedData()
@@ -251,7 +289,7 @@ const Register = () => {
           <button  type="submit" className="button">Login</button>
           <div className='login_veri'>
             <p>New User? <span onClick={toggleForm} className="link under_login">Sign up</span></p>
-            <p className='under_login'>Forgot password?</p>
+            <p className='under_login' onClick={() => setShowOTPPass(true)}>Forgot password?</p>
           </div>
         </form>
       ) : (
@@ -340,6 +378,58 @@ const Register = () => {
         </div>
       )}
 
+{showOTPPass && (
+        <div className="otp-popup">
+          <div className="otp-content">
+            <h1>OTP Verification</h1>
+            <div id='green_tab'>
+              <p>We have sent the Verification code to you Via email , check and fill below .</p>
+            </div>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={userOtp}
+              onChange={(e) => setUserOtp(e.target.value)}
+              className="otp-input"
+            />
+            <div id='pop_buttons'>
+            <button onClick={handleOTPPassSubmit} className="otp-submit-button">Submit</button>
+            <button onClick={() => setShowOTPPass(false)} className="otp-close-button">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+{showNewPass && (
+        <div className="otp-popup">
+          <div className="otp-content">
+            <h1>OTP Verification</h1>
+            <div id='gray_tab'>
+              <p>Enter the  New password Below</p>
+            </div>
+            <input
+              type="text"
+              placeholder="Enter New Password"
+              value={userNewPass}
+              onChange={(e) => setUserNewPass(e.target.value)}
+              className="otp-input"
+            />
+            <input
+              type="text"
+              placeholder="Confirm Password"
+              value={userNewPassCon}
+              onChange={(e) => setUserNewPassCon(e.target.value)}
+              className="otp-input"
+            />
+
+            <div id='pop_buttons'>
+            <button onClick={handleOTPPassSubmit} className="otp-submit-button">Submit</button>
+            <button onClick={() => setShowOTPPass(false)} className="otp-close-button">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );
