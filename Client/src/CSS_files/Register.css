@@ -214,6 +214,16 @@
   
 }
 
+#gray_tab{
+  background-color: rgb(171, 204, 249);
+  color: rgb(30, 51, 101);
+  border: 2px solid rgb(30, 51, 101);
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin-top: 20px;
+  margin-bottom:20px ;
+}
+
 
 
 .otp-input {
