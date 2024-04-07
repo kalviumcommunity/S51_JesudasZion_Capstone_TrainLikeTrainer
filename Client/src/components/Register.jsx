@@ -184,8 +184,8 @@ const Register = () => {
           name : signupName,
         })
     
-        setToken( response.data.token);
-        setCookie("token",response.data.token,10)
+        setToken( response.data.encryptedToken);
+        setCookie("token",response.data.encryptedToken,10)
   
         // Show OTP popup after successful login
         setShowOTP(false);
@@ -218,8 +218,8 @@ const Register = () => {
           name : signupName ,
         })
     
-        setToken( response.data.token);
-        setCookie("token",response.data.token,10)
+        setToken( response.data.encryptedToken);
+        setCookie("token",response.encryptedToken.token,10)
   
         // Show OTP popup after successful login
         setShowOTP(false);
@@ -251,8 +251,8 @@ const Register = () => {
           name : userObject.name,
         })
     
-        setToken( response.data.token);
-        setCookie("token",response.data.token,10)
+        setToken( response.data.encryptedToken);
+        setCookie("token",response.data.encryptedToken,10)
   
       } catch (error) {
         toast.error(error.response.data.message, {
