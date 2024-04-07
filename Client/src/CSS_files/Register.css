@@ -148,6 +148,9 @@
     .login_methods p{
       display: none;
     }
+    #googleDiv p{
+      display: none;
+    }
     .form {
       padding: 20px 20px;
     }

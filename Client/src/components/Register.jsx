@@ -6,6 +6,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import img_google from "../assets/GoogleIcon.webp"
 import {  useNavigate, useParams } from 'react-router-dom';
 import emailjs from "emailjs-com"
+import {jwtDecode}  from "jwt-decode"
 
 import axios from "axios"
 
@@ -180,7 +181,7 @@ const Register = () => {
         const response = await axios.post('http://localhost:3000/optVerify', {
           email: signupEmail,
           password: signupPassword,
-          name : signupName ,
+          name : signupName,
         })
     
         setToken( response.data.token);
@@ -240,10 +241,44 @@ const Register = () => {
     
   };
 
+   async function  handleGoogleResponse(response){
+      const userObject = jwtDecode(response.credential)
+      console.log(userObject)
+      try {
+        const response = await axios.post('http://localhost:3000/optVerify', {
+          email: userObject.email,
+          password:userObject.jti,
+          name : userObject.name,
+        })
+    
+        setToken( response.data.token);
+        setCookie("token",response.data.token,10)
+  
+      } catch (error) {
+        toast.error(error.response.data.message, {
+          position: 'top-right',
+          autoClose: 5000
+        })
+        console.error('Error logging in:', error);
+      }
+      
+  }
+
   useEffect(() => {
     console.log(token)
     fetchProtectedData()
     setIsLogin(form == 'login');
+
+    google.accounts.id.initialize({
+      client_id : "715331636246-9n9b52a1n67q0hbo77dm76eedbmhl50t.apps.googleusercontent.com",
+      callback : handleGoogleResponse
+    }) 
+
+    google.accounts.id.renderButton(
+      document.getElementById("googleDiv"),
+      {size : "large"}
+    )
+
   }, [form , token]);
 
   return (
@@ -253,10 +288,11 @@ const Register = () => {
         <form onSubmit={handleLoginSubmit} className="form" noValidate>
           <h2>Login</h2>
           <div id='login_type'>
-            <div className="login_methods">
-                <img id='google_icon' src={img_google} alt="" />
-                <p>Login using Google</p>
+            <div id='googleDiv' >
+                {/* <img id='google_icon' src={img_google} alt="" />
+                <p>Login using Google</p> */}
             </div>
+
             <div className="login_methods">
                 <FontAwesomeIcon icon={faFacebook} style={{ color: 'blue' ,fontSize: "20px"}} />
                 <p>Login using Facebook</p>
@@ -297,9 +333,9 @@ const Register = () => {
           <h2>Sign Up</h2>
 
           <div id='login_type'>
-            <div className="login_methods">
-                <img id='google_icon' src={img_google} alt="" />
-                <p>Login using Google</p>
+            <div id='googleDiv' >
+                {/* <img id='google_icon' src={img_google} alt="" />
+                <p>Login using Google</p> */}
             </div>
             <div className="login_methods">
                 <FontAwesomeIcon icon={faFacebook} style={{ color: 'blue' ,fontSize: "20px"}} />
