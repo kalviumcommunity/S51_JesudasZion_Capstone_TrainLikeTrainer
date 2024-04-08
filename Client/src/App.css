@@ -12,12 +12,16 @@
   align-items: center;
   overflow-x: hidden;
 } */
+#logo{
+  height: 90%;
+}
+
 nav{
     height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0px 7%;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .naviga{
@@ -128,3 +132,5 @@ button:hover{
   cursor: pointer;
   opacity: 90%;
 }
+
+
