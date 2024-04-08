@@ -28,7 +28,6 @@ router.post('/', verifyToken, (req, res) => {
 // Middleware function to verify JWT token
 function verifyToken(req, res, next) {
   const encryptedToken = req.body.token;
-  console.log(encryptedToken);
   if (!encryptedToken) {
     next();
     return;

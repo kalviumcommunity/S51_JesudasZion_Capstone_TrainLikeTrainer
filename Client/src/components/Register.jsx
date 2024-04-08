@@ -69,8 +69,8 @@ const Register = () => {
         password: loginPassword
       })
   
-      setToken( response.data.token);
-      setCookie("token",response.data.token,10)
+      setToken( response.data.encryptedToken);
+      setCookie("token",response.data.encryptedToken,10)
 
       // Show OTP popup after successful login
       setShowOTP(true);
