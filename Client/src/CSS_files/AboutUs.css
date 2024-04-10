@@ -1,0 +1,157 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .About_container {
+
+    padding: 17% 6.5%;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    
+  }
+  
+  /* About Section */
+  .about-section {
+    background-color: #f2f2f2;
+    
+
+  }
+  
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+  }
+  
+  .about-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 50px;
+
+  }
+  
+  .about-content p {
+    color: #666;
+    font-size: 25px;
+  }
+  
+  .about-img img {
+    display: block;
+    max-width: 100%;
+  }
+  
+  /* Mission Section */
+  /* .mission-section {
+    background-color: #fff;
+    padding: 80px 0;
+  } */
+  
+  .mission-content {
+    text-align: left;
+    width: 60%;
+  }
+  
+  .mission-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+  
+  .mission-content p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.7rem;
+  }
+  
+  .mission-img{
+    height: 50%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mission-img img {
+    height: 400px;
+    width: 400px;
+    border-top: 2px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 2px solid black;
+    border-radius: 20px;
+  }
+  
+  /* Creator Section */
+  .creator-section {
+    background-color: #f2f2f2;
+    padding: 80px 0;
+  }
+  
+  .creator-content {
+    text-align: center;
+  }
+  
+  .creator-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .creator-content p {
+    color: #666;
+    font-size: 18px;
+  }
+  
+  .creator-img img {
+    display: block;
+    max-width: 100%;
+  }
+  
+  /* Contact Section */
+  .contact-section {
+    background-color: #fff;
+    padding: 80px 0;
+  }
+  
+  .contact-content {
+    text-align: center;
+  }
+  
+  .contact-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .contact-content p {
+    color: #666;
+    font-size: 18px;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .social-links a {
+    margin: 0 10px;
+  }
+  
+  .social-links img {
+    width: 40px;
+  }
+
+  .sections_container{
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 20% 7%;
+    align-items: center;
+  }
+
+  .footer{
+    margin: 0;
+  }
+  
