@@ -6,10 +6,17 @@
     display: flex;
     height: 100%;
     font-size: 17px;
-    font-weight: 550;
+    font-weight: 500;
     color: rgb(69, 69, 69);
     padding: 10px 20px;
-    
+    height: 72px;    
+    align-items: center;
+}
+
+.buttons_navigator:hover{
+  background-color: rgb(245, 245, 245);
+  border-bottom: 3px  solid black;
+  
 }
 
 .buttons_navigator img{
@@ -21,7 +28,7 @@
 
 .buttons_navigator p{
     position: relative;
-    top: 5px;
+    top: 7px;
 }
 
 #search_bar{
@@ -100,7 +107,7 @@
     background-color: rgb(240, 240, 240);
   }
 
-  .popup-menu ul li a {
+  .popup-menu ul li  {
     color:black;
     text-decoration: none;
   }

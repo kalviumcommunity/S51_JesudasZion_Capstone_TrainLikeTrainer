@@ -6,6 +6,9 @@ import GetStarted from './components/GetStarted'
 import Register from './components/Register'
 import { useState ,useEffect } from 'react'
 import axios from 'axios'
+import AboutUs from './components/AboutUs'
+import Course from './components/Course'
+import Account from './components/Account'
 
 
 function App() {
@@ -18,6 +21,10 @@ function App() {
           <Route path='/' element={<GetStarted/>} ></Route>
           <Route path='/reg/:form' element={<Register/>}></Route>
           <Route path='/home' element={<Home/>}></Route>
+          <Route path='/about' element={<AboutUs/>}></Route>
+          <Route path='/course' element={<Course/>}></Route>
+          <Route path='/account' element={<Account/>} ></Route>
+
         </Routes>
       </BrowserRouter>
     </>
