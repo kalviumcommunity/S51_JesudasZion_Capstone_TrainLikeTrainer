@@ -9,6 +9,7 @@ import axios from 'axios'
 import AboutUs from './components/AboutUs'
 import Course from './components/Course'
 import Account from './components/Account'
+import PrivateRoute from './components/PrivateRoute'
 
 
 function App() {
@@ -20,10 +21,10 @@ function App() {
         <Routes>
           <Route path='/' element={<GetStarted/>} ></Route>
           <Route path='/reg/:form' element={<Register/>}></Route>
-          <Route path='/home' element={<Home/>}></Route>
-          <Route path='/about' element={<AboutUs/>}></Route>
-          <Route path='/course' element={<Course/>}></Route>
-          <Route path='/account' element={<Account/>} ></Route>
+          <Route path='/home' element={<PrivateRoute Component={Home} />}></Route>
+          <Route path='/about' element={<PrivateRoute Component={AboutUs} />}></Route>
+          <Route path='/course' element={<PrivateRoute Component={Course} />}></Route>
+          <Route path='/account' element={<PrivateRoute Component={Account} />} ></Route>
 
         </Routes>
       </BrowserRouter>
