@@ -1,6 +1,8 @@
 import React from 'react';
 import "../CSS_files/AboutUs.css"
 import NavBar from './NavBar';
+import back3 from '../assets/background3.jpg'
+import spidey from "../assets/spidey.jpg"
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons';
@@ -22,7 +24,7 @@ const WebsiteSections = () => {
       <section className="mission-section">
         <div className="sections_container">
               <div className="mission-img">
-                <img src="mission_img_url" alt="Mission Image" />
+                <img src={back3} alt="Mission Image" />
               </div>
           
             
@@ -41,7 +43,7 @@ const WebsiteSections = () => {
               </div>
             
               <div className="mission-img">
-                <img src="creator_img_url" alt="Creator Image" />
+                <img src={spidey} alt="Creator Image" />
               </div>
         </div>
       </section>
@@ -64,11 +66,7 @@ const WebsiteSections = () => {
               <FontAwesomeIcon className='foot_icon' icon={faYoutube} />
             </a>
           </li>
-          <li>
-            <a href="#">
-              <FontAwesomeIcon className='foot_icon' icon={faTwitter} />
-            </a>
-          </li>
+          
         </ul>
       </div>
 
