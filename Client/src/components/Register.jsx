@@ -253,6 +253,7 @@ const Register = () => {
     
         setToken( response.data.encryptedToken);
         setCookie("token",response.data.encryptedToken,10)
+        navigate("/home")
   
       } catch (error) {
         toast.error(error.response.data.message, {
@@ -265,7 +266,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    console.log(token)
+    // console.log(token)
     fetchProtectedData()
     setIsLogin(form == 'login');
 
@@ -279,7 +280,7 @@ const Register = () => {
       {size : "large"}
     )
 
-  }, [form , token]);
+  }, []);
 
   return (
     <div  className="container">

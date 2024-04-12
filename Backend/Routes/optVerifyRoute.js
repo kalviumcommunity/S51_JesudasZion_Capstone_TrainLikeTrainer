@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
         const token = jwt.sign({ email }, process.env.SECRET_TOKEN);
 
         // Encrypt the token
-        const secretKey = process.env.SECRET_TOKEN; // It's advisable to load this from an environment variable
+        const secretKey = process.env.SECRET_TOKEN; 
         const cipher = crypto.createCipher('aes-256-cbc', secretKey);
         let encryptedToken = cipher.update(token, 'utf-8', 'hex');
         encryptedToken += cipher.final('hex');
