@@ -189,6 +189,7 @@ const Register = () => {
   
         // Show OTP popup after successful login
         setShowOTP(false);
+        navigate("/home")
       } catch (error) {
         toast.error(error.response.data.message, {
           position: 'top-right',

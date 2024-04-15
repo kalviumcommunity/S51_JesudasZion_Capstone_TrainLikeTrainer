@@ -3,11 +3,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Login = require('../schema/loginSchema');
+const validateLogin = require('../dataValidator'); // Import the validation function
 require('dotenv').config();
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+    const { error } = validateLogin(req.body); // Validate request body
+    if (error) {
+        return res.status(400).json({ message: error.message }); // Return validation error
+    }
+
     const { name, email, password} = req.body;
 
     try {
