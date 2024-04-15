@@ -70,7 +70,7 @@ function GetStarted() {
                 <span className='biggeer bluer'> Pro</span>
                 </div>
                 <p className='sun_bigger'>Dynamic, Interactive Training for Sports Enthusiasts. Elevate Your Skills in Just 15 Minutes a Day!</p>
-                <button className='get_button'>Get Started</button>
+                <Link to="/reg/signup"><button className='get_button'>Get Started</button></Link>
             </div>
             <div id='img_get_div'>
                 <img className='img1_get' src={img1} alt="" />
