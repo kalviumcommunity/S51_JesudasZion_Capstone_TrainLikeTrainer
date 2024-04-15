@@ -9,14 +9,20 @@ require('dotenv').config();
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const { error } = validateLogin(req.body); // Validate request body
-    if (error) {
-        return res.status(400).json({ message: error.message }); // Return validation error
-    }
+    // const { error } = validateLogin(req.body); // Validate request body
+    // if (error) {
+    //     return res.status(400).json({ message: error.message }); // Return validation error
+    // }
 
-    const { name, email, password} = req.body;
+    const { name, email, password ,otp,userOtp} = req.body;
+    jwt.verify(otp, process.env.SECRET_TOKEN, (err, decoded) => {
+        otp = decoded;
+      });
 
     try {
+        if (otp !== userOtp) {
+            return res.status(400).json({ message: 'Invalid OTP' });
+        }
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);

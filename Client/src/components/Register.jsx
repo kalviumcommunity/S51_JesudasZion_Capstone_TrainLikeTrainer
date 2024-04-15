@@ -3,7 +3,6 @@ import '../CSS_files/Register.css';
 import img1 from "../assets/img_login.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import img_google from "../assets/GoogleIcon.webp"
 import {  useNavigate, useParams } from 'react-router-dom';
 import emailjs from "emailjs-com"
 import {jwtDecode}  from "jwt-decode"
@@ -72,8 +71,7 @@ const Register = () => {
       setToken( response.data.encryptedToken);
       setCookie("token",response.data.encryptedToken,10)
 
-      // Show OTP popup after successful login
-      setShowOTP(true);
+      window.location.reload()
     } catch (error) {
       toast.error(error.response.data.message, {
         position: 'top-right',
@@ -124,22 +122,6 @@ const Register = () => {
       // Show OTP popup after successful login
       setShowOTP(true);
 
-      var templateParams = {
-        name: signupName,
-        user_email : signupEmail,
-        otp : response.data.code
-      };
-      console.log(templateParams)
-      
-      emailjs.send(  'service_znoqnu9', 'template_sa0krxc', templateParams ,"p0rladLzqmm7DUGVF").then(
-        (response) => {
-          console.log(templateParams)
-          console.log('SUCCESS!', response.status, response.text ,response);
-        },
-        (error) => {
-          console.log('FAILED...', error);
-        },
-      );
 
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -176,12 +158,14 @@ const Register = () => {
 
   const handleOTPSubmit = async () => {
 
-    if (otp == userOtp){
+   
       try {
         const response = await axios.post('http://localhost:3000/optVerify', {
           email: signupEmail,
           password: signupPassword,
           name : signupName,
+          otp : otp,
+          userOtp : userOtp
         })
     
         setToken( response.data.encryptedToken);
@@ -189,7 +173,7 @@ const Register = () => {
   
         // Show OTP popup after successful login
         setShowOTP(false);
-        navigate("/home")
+        window.location.reload()
       } catch (error) {
         toast.error(error.response.data.message, {
           position: 'top-right',
@@ -198,25 +182,38 @@ const Register = () => {
         console.error('Error logging in:', error);
       }
   
-      setShowOTP(false);
-    }else{
-      toast.error('Incorrect Otp', {
+  };
+
+  const handelForget = async () =>{
+    setShowOTPPass(true)
+    try {
+      const response = await axios.post('http://localhost:3000/signup', {
+        email: loginEmail,
+      })
+  
+      setOtp(response.data.code);
+    } catch (error) {
+      toast.error(error.response.data.message, {
         position: 'top-right',
         autoClose: 5000
-      });
+      })
+      console.error('Error logging in:', error);
     }
-    
-  };
+  }
 
   const handleOTPPassSubmit = async () => {
     setShowNewPass(true)
     setShowOTPPass(false)
-    if (otp == userOtp){
+    
+    
+    
       try {
         const response = await axios.post('http://localhost:3000/optVerify', {
           email: loginEmail,
           password: signupPassword,
           name : signupName ,
+          otp : otp,
+          userOtp : userOtp
         })
     
         setToken( response.data.encryptedToken);
@@ -232,13 +229,6 @@ const Register = () => {
         console.error('Error logging in:', error);
       }
   
-      setShowOTP(false);
-    }else{
-      toast.error('Incorrect Otp', {
-        position: 'top-right',
-        autoClose: 5000
-      });
-    }
     
   };
 
@@ -327,7 +317,7 @@ const Register = () => {
           <button  type="submit" className="button">Login</button>
           <div className='login_veri'>
             <p>New User? <span onClick={toggleForm} className="link under_login">Sign up</span></p>
-            <p className='under_login' onClick={() => setShowOTPPass(true)}>Forgot password?</p>
+            <p className='under_login' onClick={handelForget}>Forgot password?</p>
           </div>
         </form>
       ) : (
