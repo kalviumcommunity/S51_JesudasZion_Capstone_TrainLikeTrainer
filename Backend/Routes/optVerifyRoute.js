@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const Login = require('../schema/loginSchema');
-const validateLogin = require('../dataValidator'); // Import the validation function
+const validateLogin = require('../dataValidator'); 
 require('dotenv').config();
 
 const router = express.Router();
@@ -13,14 +13,21 @@ router.post('/', async (req, res) => {
     // if (error) {
     //     return res.status(400).json({ message: error.message }); // Return validation error
     // }
-
+    var tempOtp = 0
     const { name, email, password ,otp,userOtp} = req.body;
-    jwt.verify(otp, process.env.SECRET_TOKEN, (err, decoded) => {
-        otp = decoded;
-      });
+    jwt.verify(otp, process.env.OTP_TOKEN, (err, decoded) => {
+        if (err) {
+            console.error("JWT verification failed:", err);
+            
+        } else {
+           
+            tempOtp = decoded.code
+        }
+    });
 
     try {
-        if (otp !== userOtp) {
+        console.log(tempOtp,userOtp)
+        if (tempOtp !== userOtp) {
             return res.status(400).json({ message: 'Invalid OTP' });
         }
 

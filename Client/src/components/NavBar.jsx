@@ -16,7 +16,6 @@ function NavBar() {
   const navigate = useNavigate();
   const handleLogout = () => {
     console.log("hello");
-    // Set the expiration date to a past date
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
   };
@@ -97,7 +96,7 @@ function NavBar() {
             <Link to="/account">
               <li>Account</li>
             </Link>
-            <li>Logout</li>
+            <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>
       )}
