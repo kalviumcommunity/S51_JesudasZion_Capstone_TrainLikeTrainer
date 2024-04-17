@@ -14,7 +14,8 @@ router.post('/', async (req, res) => {
     //     return res.status(400).json({ message: error.message }); // Return validation error
     // }
     var tempOtp = 0
-    const { name, email, password ,otp,userOtp} = req.body;
+    const { otp,userOtp} = req.body;
+    console.log(otp)
     jwt.verify(otp, process.env.OTP_TOKEN, (err, decoded) => {
         if (err) {
             console.error("JWT verification failed:", err);
@@ -22,32 +23,21 @@ router.post('/', async (req, res) => {
         } else {
            
             tempOtp = decoded.code
+            console.log("d",decoded.code)
         }
     });
 
     try {
         console.log(tempOtp,userOtp)
+        console.log(otp) 
         if (tempOtp !== userOtp) {
-            return res.status(400).json({ message: 'Invalid OTP' });
+            return res.status(400).json({ message: 'Invalid OTP' ,auth : false});
+        }else{
+            return res.status(201).json({auth : true})
         }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create new user
-        const newUser = new Login({ name, email, password: hashedPassword });
-        await newUser.save();
-
-        // Generate JWT token
-        const token = jwt.sign({ email }, process.env.SECRET_TOKEN);
-
-        // Encrypt the token
-        const secretKey = process.env.SECRET_TOKEN; 
-        const cipher = crypto.createCipher('aes-256-cbc', secretKey);
-        let encryptedToken = cipher.update(token, 'utf-8', 'hex');
-        encryptedToken += cipher.final('hex');
-
-        res.json({ encryptedToken });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
