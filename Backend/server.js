@@ -22,7 +22,6 @@ app.get("/", (req, res) => {
 
 
 
-// Login / sign in Routes ---------------------------------------------------------------------------------------------------------------------------
 
 
 // Import route handlers
@@ -30,6 +29,9 @@ const signupRouter = require('./Routes/signupRoute');
 const loginRouter = require('./Routes/loginRoute');
 const protected = require("./Routes/protected")
 const optVerify = require("./Routes/optVerifyRoute")
+const user = require("./Routes/userRoute")
+const mail = require("./Routes/sendMail")
+const passChange = require("./Routes/passChange")
 
 
 
@@ -38,7 +40,9 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/protected', protected);
 app.use("/optVerify", optVerify)
-
+app.use("/user",user)
+app.use("/mail",mail)
+app.use('/paasChange' ,passChange)
 
 
 // Starting the server with error handling
