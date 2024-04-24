@@ -168,9 +168,9 @@ const Register = () => {
         userOtp: userOtp,
       });
 
-      if (response.data.message.auth) {
+      if (response.data.auth) {
         const response1 = await axios.post("http://localhost:3000/user", {
-          email: loginEmail,
+          email: signupEmail,
           password: signupPassword,
           name: signupName,
         });
@@ -182,7 +182,7 @@ const Register = () => {
 
       // Show OTP popup after successful login
     } catch (error) {
-      toast.error(error.response.data.message, {
+      toast.error(error.message, {
         position: "top-right",
         autoClose: 5000,
       });
