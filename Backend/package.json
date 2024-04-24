@@ -21,6 +21,7 @@
     "google-auth-library": "^9.7.0",
     "joi": "^17.12.3",
     "jsonwebtoken": "^9.0.2",
+    "loadash": "^1.0.0",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.1",
     "node": "^21.7.1",
