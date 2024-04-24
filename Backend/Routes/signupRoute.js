@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const Login = require('../schema/loginSchema');
+const {User} = require('../schema/user');
 const nodemailer =  require("nodemailer")
 
 require('dotenv').config()
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
 
     try {
         // Check if email already exists
-        const existingUser = await Login.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'Email already exists' });
         }

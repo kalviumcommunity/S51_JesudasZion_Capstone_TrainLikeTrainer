@@ -1,9 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const Login = require('../schema/loginSchema');
-const validateLogin = require('../dataValidator'); 
 require('dotenv').config();
 
 const router = express.Router();

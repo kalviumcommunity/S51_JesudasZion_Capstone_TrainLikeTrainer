@@ -2,8 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const Login = require('../schema/loginSchema');
-const validateLogin = require('../dataValidator'); 
+const {User} = require('../schema/user');
+const validateUser = require('../dataValidator'); 
 require('dotenv').config();
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create new user
-        const newUser = new Login({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
 
         // Generate JWT token

@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const config = require("config");
 const jwt = require("jsonwebtoken");
 
-const loginSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 3,
     maxlength: 50,
   },
   email: {
@@ -19,14 +18,14 @@ const loginSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    required: true,
+    required: false,
     minlength: 3,
     maxlength: 50,
     unique: true,
   },
   password: {
     type: String,
-    required: true,
+    required: false,
     maxlength: 1024,
     minlength: 5,
   },
@@ -35,12 +34,12 @@ const loginSchema = new mongoose.Schema({
     default: false,
   },
 });
-const User = mongoose.model("login_tlts", loginSchema);
+const User = mongoose.model("User", userSchema);
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     { _id: this._id, isAdmin: this.isAdmin },
-    config.get("jwtPrivateKey")
+    process.env.SECRET_TOKEN
   );
   return token;
 };
@@ -73,5 +72,3 @@ function validates(user) {
 exports.User = User;
 exports.validates = validates;
 exports.validateUser = validateUser;
-
-  
