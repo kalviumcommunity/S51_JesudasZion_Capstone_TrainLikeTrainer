@@ -1,0 +1,89 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-col {
+    flex: 1;
+    margin: 10px;
+  }
+  
+  .dashboard-col-9 {
+    flex: 0.75;
+  }
+  
+  .dashboard-col-3 {
+    flex: 0.25;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .dashboard-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .dashboard-button:hover {
+    background-color: #218838;
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-item {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .post-title {
+    margin-bottom: 5px;
+  }
+  
+  .post-description {
+    overflow: hidden;
+  }
+  
+  .post-details {
+    margin-top: 10px;
+  }
+  
+  .post-tag {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 2px 5px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 3px;
+  }
+  
+  .post-stats {
+    margin-top: 5px;
+    font-size: 0.8rem;
+  }
+  
+  
