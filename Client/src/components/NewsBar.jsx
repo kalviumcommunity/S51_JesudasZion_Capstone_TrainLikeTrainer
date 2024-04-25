@@ -2,7 +2,7 @@ import React from 'react';
 import "../CSS_files/Home.css";
 
 function NewsBar({ data }) {
-  console.log(data);
+  // console.log(data);
 
   // Define a function to handle click event
   const handleNewsClick = () => {

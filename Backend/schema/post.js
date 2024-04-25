@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { User } = require("./loginSchema");
+const { User } = require("./user");
 const Joi = require("joi");
 const { tagSchema } = require("./tag");
 

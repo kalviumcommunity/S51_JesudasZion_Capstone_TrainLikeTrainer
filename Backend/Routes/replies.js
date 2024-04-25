@@ -1,8 +1,8 @@
 const express = require("express");
 const auth = require("../middleware/auth");
-const { Reply, validateReply } = require("../models/replies");
+const { Reply, validateReply } = require("../schema/replies");
 const _ = require("lodash");
-const { Post } = require("../models/post");
+const { Post } = require("../schema/post");
 const router = express.Router();
 
 router.post("/create/:id", auth, async (req, res) => {
