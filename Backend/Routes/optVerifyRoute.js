@@ -6,10 +6,6 @@ require('dotenv').config();
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    // const { error } = validateLogin(req.body); // Validate request body
-    // if (error) {
-    //     return res.status(400).json({ message: error.message }); // Return validation error
-    // }
     var tempOtp = 0
     const { otp,userOtp} = req.body;
     console.log(otp)

@@ -1,9 +1,7 @@
 const express = require("express");
 const { startDatabase, stopDatabase, isConnected } = require("./db");
 require("dotenv").config();
-
 const cors = require("cors");
-
 const app = express();
 app.use(express.json());
 
@@ -26,6 +24,10 @@ const user = require("./Routes/userRoute");
 const mail = require("./Routes/sendMail");
 const passChange = require("./Routes/passChange");
 const googleSave = require("./Routes/GoogleRoute");
+const posts = require("./Routes/post");
+const tags = require("./Routes/tags");
+const replies = require("./Routes/replies");
+const getUser = require("./Routes/getUser");
 
 // Route handlers
 app.use("/signup", signupRouter);
@@ -36,7 +38,10 @@ app.use("/user", user);
 app.use("/mail", mail);
 app.use("/paasChange", passChange);
 app.use("/googleSave", googleSave);
-
+app.use("/posts", posts);
+app.use("/tags", tags);
+app.use("/reply", replies);
+app.use("/" , getUser)
 // Starting the server with error handling
 const server = app.listen(process.env.API_PORT, async () => {
   const port = server.address().port;

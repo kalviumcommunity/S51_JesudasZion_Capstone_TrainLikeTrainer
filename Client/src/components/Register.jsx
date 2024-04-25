@@ -4,7 +4,6 @@ import img1 from "../assets/img_login.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
-import emailjs from "emailjs-com";
 import { jwtDecode } from "jwt-decode";
 
 import axios from "axios";
@@ -12,7 +11,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Register = () => {
+const Register = ({ user, setUser }) => {
+  console.log(user);
   const navigate = useNavigate();
   const { form } = useParams();
 
@@ -23,8 +23,8 @@ const Register = () => {
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showOTP, setShowOTP] = useState(false); // State to manage OTP popup visibility
-  const [otp, setOtp] = useState(""); // State to manage OTP input
+  const [showOTP, setShowOTP] = useState(false);
+  const [otp, setOtp] = useState("");
   const [userOtp, setUserOtp] = useState("");
   const [token, setToken] = useState("");
   const [showOTPPass, setShowOTPPass] = useState(false);
@@ -68,10 +68,17 @@ const Register = () => {
         password: loginPassword,
       });
 
+      // Fetch user data after successful login
+      const userDataResponse = await axios.get(
+        `http://localhost:3000/user/${loginEmail}`
+      );
+      await setUser(userDataResponse.data);
+
       setToken(response.data.encryptedToken);
       setCookie("token", response.data.encryptedToken, 10);
-
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     } catch (error) {
       toast.error(error.response.data.message, {
         position: "top-right",
@@ -174,10 +181,18 @@ const Register = () => {
           password: signupPassword,
           name: signupName,
         });
+
+        const userDataResponse = await axios.get(
+          `http://localhost:3000/user/${signupEmail}`
+        );
+        setUser(userDataResponse.data);
+        console.log(userDataResponse.data);
         setToken(response1.data.encryptedToken);
         setCookie("token", response1.data.encryptedToken, 10);
         setShowOTP(false);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
 
       // Show OTP popup after successful login

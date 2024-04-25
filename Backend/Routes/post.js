@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
-const { Post, validatePost } = require("../models/post");
-const { Reply, validateReply } = require("../models/replies");
-const { User } = require("../models/user");
+const { Post, validatePost } = require("../schema/post");
+const { Reply, validateReply } = require("../schema/replies");
+const { User } = require("../schema/user");
 const auth = require("../middleware/auth");
-const { Tag } = require("../models/tag");
+const { Tag } = require("../schema/tag");
 
 router.get("/", async (req, res) => {
   let all_posts = await Post.find().populate("author", "name -_id");

@@ -1,7 +1,6 @@
 import './App.css'
-import NavBar from './components/NavBar'
 import Home from './components/Home'
-import {BrowserRouter , Route , Routes,useNavigate} from "react-router-dom"
+import {BrowserRouter , Route , Routes} from "react-router-dom"
 import GetStarted from './components/GetStarted'
 import Register from './components/Register'
 import { useState ,useEffect } from 'react'
@@ -13,10 +12,15 @@ import PrivateRoute from './components/PrivateRoute'
 
 
 function App() {
-  const [userName , setUserName] = useState("")
+  const [user , setUser] = useState({
+    name : "",
+    email : "",
+    password : "",
+    isAdmin : ""
+  })
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false);
     function getCookie(name) {
-  
       const cookieString = document.cookie;
       const cookies = cookieString.split('; ');
       for (let i = 0; i < cookies.length; i++) {
@@ -33,7 +37,6 @@ function App() {
   
       try {
         const response = await axios.post('http://localhost:3000/protected',{"token" :getCookie("token")});
-        // console.log('Protected data:', response.data);
         if (response.data.authenticated){
             setIsAuthenticated(true)
         }else{
@@ -53,7 +56,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<GetStarted/>} ></Route>
-          <Route path='/reg/:form' element={<Register/>}></Route>
+          <Route path='/reg/:form' element={<Register user= {user} setUser = {setUser}/>}></Route>
           <Route path='/home' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Home} />}></Route>
           <Route path='/about' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={AboutUs} />}></Route>
           <Route path='/course' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Course} />}></Route>
