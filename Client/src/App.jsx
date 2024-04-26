@@ -9,7 +9,7 @@ import AboutUs from './components/AboutUs'
 import Course from './components/Course'
 import Account from './components/Account'
 import PrivateRoute from './components/PrivateRoute'
-import Dashboard from "./forum/Dashboard"
+import DashboardView from './forum/DashBoardView'
 
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
           <Route path='/about' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={AboutUs} />}></Route>
           <Route path='/course' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Course} />}></Route>
           <Route path='/account' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Account} />} ></Route>
-          <Route path='/dashboard' element={<Dashboard user = {user}/>}></Route>
+          <Route path='/dashboard' element={<DashboardView user = {user}/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

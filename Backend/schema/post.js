@@ -28,7 +28,7 @@ const postSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "login_tlts",
+    ref: "User",
     required: true,
   },
   views: {
@@ -38,7 +38,7 @@ const postSchema = new mongoose.Schema({
   },
   upvotes: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: "login_tlts",
+    ref: "User",
     default: [],
   },
   time: {

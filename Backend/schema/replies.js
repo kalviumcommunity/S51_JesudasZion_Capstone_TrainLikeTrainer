@@ -15,12 +15,12 @@ const replySchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.ObjectId,
-    ref: "login_tlts",
+    ref: "User",
     required: true,
   },
   upvotes: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: "login_tlts",
+    ref: "User",
     default: [],
   },
   time: {

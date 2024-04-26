@@ -5,7 +5,7 @@ import axios from "axios";
 import NewsBar from "./NewsBar";
 import forum from "../assets/forum-gif.gif";
 import courseButton from "../assets/course-gif.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +18,11 @@ function Home() {
   const [showNews, setShowNews] = useState(false); // State to track visibility of news section
   const [isMobile, setIsMobile] = useState(window.innerWidth < 770); // State to track if the screen is mobile
 
+  const navigate = useNavigate()
+
   const fetchNews = async () => {
+
+
     try {
       const response = await axios.get(
         "https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=726045543c0c431fa40bedae070f9be7"
@@ -53,6 +57,10 @@ function Home() {
   const handleResize = () => {
     setIsMobile(window.innerWidth < 770);
   };
+  const handelForum = () =>{
+    console.log("123")
+    navigate("/dashboard")
+  }
 
   return (
     <>
@@ -71,9 +79,9 @@ function Home() {
                 <div>Course</div>
               </div>
             </Link>
-            <Link>
-              <div id="forum" className="navi_home">
-                <img src={forum} alt="" />
+            <Link to="/dashboard">
+              <div id="forum"   className="navi_home">
+                <img  src={forum} alt="" />
                 <div>Forum</div>
               </div>
             </Link>

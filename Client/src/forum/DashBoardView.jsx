@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import Pagination from "./common/pagination";
+import Pagination from "./common/pagination";
 import ListGroup from "./listgroup.jsx";
-import Posts from "./posts";
-import { paginate } from "../utils/paginate";
+import Posts from "./Post.jsx";
+// import { paginate } from "../utils/paginate";
 import { api } from "../config.js";
 import http from "../services/httpService.js";
 import Jumbotron from "./common/jumbotron";
+import _ from "lodash"
+import "../CSS_files/forum.css"
 
 const DashboardView = ({ user }) => {
   const [allPosts, setAllPosts] = useState([]);
@@ -61,11 +63,16 @@ const DashboardView = ({ user }) => {
     return filtered;
   };
 
+  function paginate(items, pageNumber, pageSize) {
+    const startIndex = (pageNumber - 1) * pageSize;
+    return _(items).slice(startIndex).take(pageSize).value();
+  }
+
   const filtered = selectedTag._id === "1" ? allPosts : getPosts();
   const posts = paginate(filtered, currentPage, pageSize);
 
-  if (allPosts.length === 0)
-    return <p>There are no posts in the database!</p>;
+//   if (allPosts.length === 0)
+//     return <p>There are no posts in the database!</p>;
 
   return (
     <>
@@ -100,12 +107,12 @@ const DashboardView = ({ user }) => {
               onTagSelect={handleTagSelect}
             />
           </div>
-          {/* <Pagination
+          <Pagination
             itemCount={filtered.length}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={handlePageChange}
-          /> */}
+          />
         </div>
       </div>
     </>
