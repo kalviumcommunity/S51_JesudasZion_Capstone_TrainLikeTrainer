@@ -10,16 +10,12 @@ import Course from './components/Course'
 import Account from './components/Account'
 import PrivateRoute from './components/PrivateRoute'
 import DashboardView from './forum/DashBoardView'
+import NewPost from './forum/createpost'
 
 
 function App() {
-  const [user , setUser] = useState({
-    name : "",
-    email : "",
-    password : "",
-    isAdmin : ""
-  })
-  
+
+  // const { user, updateUser } = useUser()
   const [isAuthenticated, setIsAuthenticated] = useState(false);
     function getCookie(name) {
       const cookieString = document.cookie;
@@ -50,6 +46,8 @@ function App() {
   
     useEffect(() => {
       fetchProtectedData();
+      
+      // console.log(user)
     }, [getCookie("token")]);
   return (
 
@@ -57,12 +55,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<GetStarted/>} ></Route>
-          <Route path='/reg/:form' element={<Register user= {user} setUser = {setUser}/>}></Route>
-          <Route path='/home' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Home} />}></Route>
+          <Route path='/reg/:form' element={<Register  />}></Route>
+          <Route path='/home' element={<PrivateRoute  isAuthenticated={isAuthenticated} Component={Home} />}></Route>
           <Route path='/about' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={AboutUs} />}></Route>
           <Route path='/course' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Course} />}></Route>
           <Route path='/account' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Account} />} ></Route>
-          <Route path='/dashboard' element={<DashboardView user = {user}/>}></Route>
+          <Route path='/dashboard' element={<DashboardView />}></Route>
+          <Route path='/new-post' element={<NewPost />}></Route>
         </Routes>
       </BrowserRouter>
     </>

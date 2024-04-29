@@ -11,6 +11,16 @@ import _ from "lodash"
 import "../CSS_files/forum.css"
 
 const DashboardView = ({ user }) => {
+  function getCookie(cookieName) {
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === cookieName) {
+            return decodeURIComponent(value);
+        }
+    }
+  }
+  const [token,setToken] = useState(getCookie("token"))
   const [allPosts, setAllPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
@@ -82,7 +92,6 @@ const DashboardView = ({ user }) => {
           <div className="dashboard-col">
             <div className="dashboard-header">
               Showing {filtered.length} posts.
-              {user && (
                 <Link to="/new-post">
                   <button
                     type="button"
@@ -92,7 +101,6 @@ const DashboardView = ({ user }) => {
                     New Post
                   </button>
                 </Link>
-              )}
             </div>
           </div>
         </div>

@@ -24,15 +24,12 @@ router.post('/', async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ email }, process.env.SECRET_TOKEN);
-
-        // Encrypt the token
-        const secretKey = process.env.SECRET_TOKEN; 
-        const cipher = crypto.createCipher('aes-256-cbc', secretKey);
-        let encryptedToken = cipher.update(token, 'utf-8', 'hex');
-        encryptedToken += cipher.final('hex');
-
-        res.json({ encryptedToken });
+        const token = jwt.sign(
+            { _id: user._id, isAdmin: user.isAdmin , email : user.email },
+            process.env.SECRET_TOKEN
+          );
+          res.header("x-auth-token")
+             .json({token})
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
