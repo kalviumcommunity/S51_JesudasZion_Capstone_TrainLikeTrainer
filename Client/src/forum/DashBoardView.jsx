@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import Pagination from "./common/pagination";
 import ListGroup from "./listgroup.jsx";
 import Posts from "./Post.jsx";
-// import { paginate } from "../utils/paginate";
+import { paginate } from "../utils/paginate";
 import { api } from "../config.js";
 import http from "../services/httpService.js";
 import Jumbotron from "./common/jumbotron";
 import _ from "lodash"
 import "../CSS_files/forum.css"
 
-const DashboardView = ({ user }) => {
+const DashboardView = () => {
   function getCookie(cookieName) {
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
@@ -33,6 +33,7 @@ const DashboardView = ({ user }) => {
       const { data: tags } = await http.get(api.tagsEndPoint);
 
       setAllPosts([...allposts]);
+      console.log([...allPosts])
       setTags([
         {
           _id: "1",
@@ -79,7 +80,9 @@ const DashboardView = ({ user }) => {
   }
 
   const filtered = selectedTag._id === "1" ? allPosts : getPosts();
+  console.log(filtered)
   const posts = paginate(filtered, currentPage, pageSize);
+  console.log(posts , "posts")
 
 //   if (allPosts.length === 0)
 //     return <p>There are no posts in the database!</p>;

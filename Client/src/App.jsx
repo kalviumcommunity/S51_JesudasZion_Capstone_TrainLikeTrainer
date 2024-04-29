@@ -11,6 +11,8 @@ import Account from './components/Account'
 import PrivateRoute from './components/PrivateRoute'
 import DashboardView from './forum/DashBoardView'
 import NewPost from './forum/createpost'
+import Posts from './forum/Post'
+import PostPage from './forum/PostPage'
 
 
 function App() {
@@ -62,6 +64,7 @@ function App() {
           <Route path='/account' element={<PrivateRoute isAuthenticated={isAuthenticated} Component={Account} />} ></Route>
           <Route path='/dashboard' element={<DashboardView />}></Route>
           <Route path='/new-post' element={<NewPost />}></Route>
+          <Route path="/post/:id" element={<PostPage />}/>
         </Routes>
       </BrowserRouter>
     </>
