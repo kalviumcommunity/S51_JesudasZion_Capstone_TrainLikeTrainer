@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await Post.find({ _id: req.params.id }).populate(
       "author",
-      "name username"
+      "name"
     );
     const views = post[0].views;
     post[0].views = views + 1;
@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/create", auth, async (req, res) => {
+router.post("/create", auth , async (req, res) => {
   const { error } = validatePost(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const tags = req.body.tags;

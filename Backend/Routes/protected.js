@@ -34,13 +34,13 @@ function verifyToken(req, res, next) {
   }
 
   // Decrypt the token
-  const secretKey =process.env.SECRET_TOKEN; // Use the same secret key used for encryption
-  const decipher = crypto.createDecipher('aes-256-cbc', secretKey);
-  let decryptedToken = decipher.update(encryptedToken, 'hex', 'utf-8');
-  decryptedToken += decipher.final('utf-8');
+  // const secretKey =process.env.SECRET_TOKEN; // Use the same secret key used for encryption
+  // const decipher = crypto.createDecipher('aes-256-cbc', secretKey);
+  // let decryptedToken = decipher.update(encryptedToken, 'hex', 'utf-8');
+  // decryptedToken += decipher.final('utf-8');
 
   // Verify the decrypted token
-  jwt.verify(decryptedToken, process.env.SECRET_TOKEN, (err, decoded) => {
+  jwt.verify(encryptedToken, process.env.SECRET_TOKEN, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: 'Invalid token' });
     }

@@ -1,8 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-const Posts = (props) => {
-  const { posts } = props;
+const Posts = ({posts}) => {
+  console.log(posts, " zion")
+//   useEffect(()=>{
+//     const fetchUserById = async (userId) => {
+//       try {
+//           const response = await fetch(`/api/user/${userId}`); // Assuming your Express API is mounted at /api
+//           if (!response.ok) {
+//               throw new Error('Failed to fetch user');
+//           }
+//           const userData = await response.json();
+//           return userData;
+//       } catch (error) {
+//           console.error('Error fetching user:', error.message);
+//           throw error; // Rethrow the error to handle it elsewhere if needed
+//       }
+//   };
+//   fetchUserById(id)
+//   }
+ 
+// ,[])
 
   return (
     <div className="posts-list">

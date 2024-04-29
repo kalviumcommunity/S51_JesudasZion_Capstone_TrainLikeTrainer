@@ -11,11 +11,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Register = ({ user, setUser }) => {
-  console.log(user);
+const Register = () => {
+  // console.log(user);
   const navigate = useNavigate();
   const { form } = useParams();
-
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -72,15 +71,15 @@ const Register = ({ user, setUser }) => {
       const userDataResponse = await axios.get(
         `http://localhost:3000/user/${loginEmail}`
       );
-      await setUser(userDataResponse.data);
-
-      setToken(response.data.encryptedToken);
-      setCookie("token", response.data.encryptedToken, 10);
+    
+      console.log(response)
+      setToken(response.data.token);
+      setCookie("token", response.data.token, 10);
       setTimeout(() => {
         window.location.reload();
       }, 500);
     } catch (error) {
-      toast.error(error.response.data.message, {
+      toast.error(error.response.message, {
         position: "top-right",
         autoClose: 5000,
       });
@@ -185,8 +184,14 @@ const Register = ({ user, setUser }) => {
         const userDataResponse = await axios.get(
           `http://localhost:3000/user/${signupEmail}`
         );
-        setUser(userDataResponse.data);
-        console.log(userDataResponse.data);
+        let temp = (userDataResponse.data);
+      updateUser({
+        name : temp.name,
+        email : temp.email,
+        password : temp.password,
+        _id : temp._id,
+        isAdmin: false,
+      })
         setToken(response1.data.encryptedToken);
         setCookie("token", response1.data.encryptedToken, 10);
         setShowOTP(false);
@@ -273,7 +278,6 @@ const Register = ({ user, setUser }) => {
     const response1 = await axios.post("http://localhost:3000/passChange", {
       email: loginEmail,
       password: signupPassword,
-      name: "zion",
     });
     setToken(response1.data.encryptedToken);
     setCookie("token", response1.data.encryptedToken, 10);

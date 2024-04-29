@@ -12,6 +12,7 @@ import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 import ClipLoader from "react-spinners/ClipLoader";
 
+
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
