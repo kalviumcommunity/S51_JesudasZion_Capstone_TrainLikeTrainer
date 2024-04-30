@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 // import Moment from "react-moment";
-// import "moment-timezone";
-// import { PersonCircle, HandThumbsUpFill } from "react-bootstrap-icons";
+// import "moment-timezone";  
+import { PersonCircle, HandThumbsUpFill } from "react-bootstrap-icons";
 import { ToastContainer, toast } from "react-toastify";
 import http from "../services/httpService";
 import { api } from "../config.js";
-// import PostReply from "./createReply";
+import PostReply from "./createReply";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from  "axios" 
-
-
-
-
 
 
 const PostPage =  () => {
@@ -143,14 +139,14 @@ const PostPage =  () => {
               }
               onClick={handleUpvote}
             >
-              {/* <HandThumbsUpFill className="mr-2" /> */}
+              <HandThumbsUpFill className="mr-2" />
               {(post.upvotes && post.upvotes.length) || 0}
             </button>
             <p>{post.views} Views</p>
           </div>
           <div className="" style={{ color: "#505050" }}>
             <div>
-              {/* <PersonCircle size={30} className="mr-2" /> */}
+              <PersonCircle size={30} className="mr-2" />
               Posted by {(post.author.name) || 0}
             </div>
             <p className="mb-1">
@@ -159,7 +155,7 @@ const PostPage =  () => {
           </div>
         </div>
       </div>
-      {/* {user && <PostReply id={id()} />} */}
+      {user && <PostReply id={id} />}
       <div className="">
         Showing {replies.length} replies
       </div>
@@ -168,7 +164,7 @@ const PostPage =  () => {
           replies.map((reply) => (
             <div className="container col-lg-6 shadow-lg p-3 mt-3 bg-body rounded" key={reply._id}>
               <div className="ml-4">
-                {/* <PersonCircle size={30} className="mr-3" /> */}
+                <PersonCircle size={30} className="mr-3" />
                 Posted by {reply.author.username}
               </div>
               <div className="m-4">{reply.comment}</div>
@@ -184,7 +180,7 @@ const PostPage =  () => {
                     handleReplyUpvote(reply._id);
                   }}
                 >
-                  {/* <HandThumbsUpFill className="mr-2" /> */}
+                  <HandThumbsUpFill className="mr-2" />
                   {reply.upvotes.length}
                 </button>
                 <p className="mb-1">
