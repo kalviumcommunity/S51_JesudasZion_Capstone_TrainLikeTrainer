@@ -62,14 +62,14 @@ const Register = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/login", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/login", {
         email: loginEmail,
         password: loginPassword,
       });
 
       // Fetch user data after successful login
       const userDataResponse = await axios.get(
-        `http://localhost:3000/user/${loginEmail}`
+        `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${loginEmail}`
       );
     
       console.log(response)
@@ -126,7 +126,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/signup", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/signup", {
         email: signupEmail,
       });
 
@@ -147,7 +147,7 @@ const Register = () => {
     try {
       // Make a GET request to the protected route
 
-      const response = await axios.post("http://localhost:3000/protected", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected", {
         token: getCookie("token"),
       });
 
@@ -169,20 +169,20 @@ const Register = () => {
 
   const handleOTPSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/optVerify", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify", {
         otp: otp,
         userOtp: userOtp,
       });
 
       if (response.data.auth) {
-        const response1 = await axios.post("http://localhost:3000/user", {
+        const response1 = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user", {
           email: signupEmail,
           password: signupPassword,
           name: signupName,
         });
 
         const userDataResponse = await axios.get(
-          `http://localhost:3000/user/${signupEmail}`
+          `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${signupEmail}`
         );
         let temp = (userDataResponse.data);
       updateUser({
@@ -217,7 +217,7 @@ const Register = () => {
   const handleOTPPassSubmit = async () => {
     console.log(userOtp);
     try {
-      const response = await axios.post("http://localhost:3000/optVerify", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify", {
         otp: otp,
         userOtp: userOtp,
       });
@@ -240,7 +240,7 @@ const Register = () => {
     const userObject = jwtDecode(response.credential);
     console.log(userObject);
     try {
-      const response = await axios.post("http://localhost:3000/googleSave", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/googleSave", {
         email: userObject.email,
         name: userObject.name,
       });
@@ -259,7 +259,7 @@ const Register = () => {
 
   const handelEmailPass = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/mail", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/mail", {
         email: loginEmail,
       });
       setShowEmailPass(true);
@@ -275,7 +275,7 @@ const Register = () => {
   };
 
   const handelChangePass = async () => {
-    const response1 = await axios.post("http://localhost:3000/passChange", {
+    const response1 = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange", {
       email: loginEmail,
       password: signupPassword,
     });

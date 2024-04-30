@@ -53,7 +53,7 @@ const PostPage =  () => {
       const decoded = jwtDecode(token);
       // Fetch user data after successful login
       const userDataResponse = await axios.get(
-        `http://localhost:3000/user/${decoded.email}`
+        `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${decoded.email}`
       );
 
       // Update state with decoded token

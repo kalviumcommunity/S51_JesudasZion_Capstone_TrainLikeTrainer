@@ -35,7 +35,7 @@ function App() {
       
   
       try {
-        const response = await axios.post('http://localhost:3000/protected',{"token" :getCookie("token")});
+        const response = await axios.post('https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected',{"token" :getCookie("token")});
         if (response.data.authenticated){
             setIsAuthenticated(true)
         }else{

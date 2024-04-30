@@ -1,6 +1,6 @@
 export const api = {  
-  tagsEndPoint: 'http://localhost:3000/tags/',
-  usersEndPoint: 'http://localhost:3000/users/',
-  postsEndPoint: 'http://localhost:3000/posts/',
-  repliesEndPoint: 'http://localhost:3000/reply/',
+  tagsEndPoint: 'https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/tags/',
+  usersEndPoint: 'https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/users/',
+  postsEndPoint: 'https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/posts/',
+  repliesEndPoint: 'https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/reply/',
 }

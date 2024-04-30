@@ -21,26 +21,30 @@ function Home() {
 
   const navigate = useNavigate()
 
-  const fetchNews = async () => {
-
-
+  async function fetchSportsNews() {
+    const apiKey = 'f8a1880804efa42f2eca1258d37ecd87';
+    const apiUrl = `https://gnews.io/api/v4/search?q=sports&apikey=${apiKey}`;
+  
     try {
-      const response = await axios.get(
-        "https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=726045543c0c431fa40bedae070f9be7"
-      );
-      if (response) {
-        setData(response.data.articles);
-        setLoading(false); // Set loading to false when data fetching is complete
-      } else {
-        console.log("nodata");
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      const responseData = await response.json();
+      setData(responseData.articles)
+      setLoading(false)
+      console.log(responseData.articles); // Log the response data to the console
     } catch (error) {
-      console.error("Failed to fetch protected data:", error);
+      console.error('Error fetching sports news:', error.message);
     }
-  };
-
+  }
+  
+  // Call the function to fetch and log sports news
+ 
+  
   useEffect(() => {
-    fetchNews();
+    // window.location.reload()
+    fetchSportsNews();
     // Add event listener to track window resize
     window.addEventListener("resize", handleResize);
     return () => {
@@ -136,6 +140,7 @@ function Home() {
               ) : (
                 <div id="newsContainer">
                   {data.map((item, index) => (
+                    // console.log(item)
                     <NewsBar key={index} data={item} />
                   ))}
                 </div>
