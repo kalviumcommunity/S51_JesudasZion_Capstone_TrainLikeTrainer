@@ -6,40 +6,19 @@
   .dashboard-row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 8%;
   }
   
   .dashboard-col {
     flex: 1;
-    margin: 10px;
+    /* margin: 10px; */
   }
   
-  .dashboard-col-9 {
-    flex: 0.75;
+  .dashboard-posts{
+    /* padding: 20px; */
+    width: 80%;
   }
-  
-  .dashboard-col-3 {
-    flex: 0.25;
-  }
-  
-  .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-  }
-  
-  .dashboard-button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .dashboard-button:hover {
-    background-color: #218838;
-  }
-
   .posts-list {
     display: flex;
     flex-direction: column;
@@ -50,7 +29,11 @@
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-top: 2px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 2px solid black;
+    border-radius: 15px;
     text-decoration: none;
     color: #333;
   }
@@ -85,5 +68,85 @@
     margin-top: 5px;
     font-size: 0.8rem;
   }
+
+
+  .jumbotron{
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: left;
+    justify-content: center;
+    background-image: url("../assets/BackForum1.webp");
+    background-size: cover;
+    color:rgb(37, 37, 107);
+  }
+
+  .welcome_forum{
+    margin-bottom: 40px;
+    font-size:50px;
+  }
+
+  .lead{
+    font-size: large;
+  }
   
+
+  .dashboard-header{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+
+  .dashboard-header p {
+    background-color: darkblue;
+    padding: 15px;
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 5px;
+  }
+
+
+  .dashboard-button {
+    background-color: darkblue;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 5px;
+  }
+
+  .dashboard-button:hover{
+    background-color: rgb(38, 53, 113);
+  }
+
+  .list-group{
+    text-decoration: none;
+    margin-top: 20px;
+  }
+  .list-group-item{
+    text-decoration: none;
+    height: 30px;
+    border: silver 1px solid;
+    font-size: medium;
+    font-weight: 600;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .list-active{
+    background-color: darkblue;
+    color: white;
+  }
+
+
   
