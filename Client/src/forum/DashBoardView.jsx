@@ -94,12 +94,11 @@ const DashboardView = () => {
         <div className="dashboard-row">
           <div className="dashboard-col">
             <div className="dashboard-header">
-              Showing {filtered.length} posts.
+             <p> Showing {filtered.length} posts.</p>
                 <Link to="/new-post">
-                  <button
+                  <button 
                     type="button"
                     className="dashboard-button"
-                    style={{ marginBottom: 20 }}
                   >
                     New Post
                   </button>
@@ -108,7 +107,7 @@ const DashboardView = () => {
           </div>
         </div>
         <div className="dashboard-row">
-          <div className="dashboard-col-9">
+          <div className="dashboard-posts">
             <Posts posts={posts} onDelete={handlePostDelete} />
           </div>
           <div className="dashboard-col-3">

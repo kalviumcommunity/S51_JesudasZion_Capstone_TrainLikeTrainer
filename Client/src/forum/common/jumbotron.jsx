@@ -1,13 +1,17 @@
 import React from "react";
+import NavBar from "../../components/NavBar"
 
 const Jumotron = () => {
   return (
+    <>
+    <NavBar></NavBar>
     <div className="jumbotron">
-      <h1 className="display-3">Community</h1>
-      <p class="lead">We &lt;3 people who code!</p>
-      <hr class="my-4" />
-      <p className="lead">A disscussion forum for enthusiastic developers.</p>
+      <h1 className="welcome_forum">Welcome to SportSphere Forum!
+
+</h1>
+      <p className="lead">Connect with fellow athletes, share insights, and elevate your training game together.</p>
     </div>
+    </>
   );
 };
 

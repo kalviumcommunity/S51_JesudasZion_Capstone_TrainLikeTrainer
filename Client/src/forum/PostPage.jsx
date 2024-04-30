@@ -31,6 +31,7 @@ const PostPage =  () => {
         const { data: repliesData } = await http.get(api.repliesEndPoint + id);
         setPost(postData);
         setReplies(repliesData);
+        console.log(repliesData , " reply")
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -165,7 +166,7 @@ const PostPage =  () => {
             <div className="container col-lg-6 shadow-lg p-3 mt-3 bg-body rounded" key={reply._id}>
               <div className="ml-4">
                 <PersonCircle size={30} className="mr-3" />
-                Posted by {reply.author.username}
+                Posted by {reply.author.name}
               </div>
               <div className="m-4">{reply.comment}</div>
               <div className="d-flex w-100 justify-content-between mt-3 mb-3">
