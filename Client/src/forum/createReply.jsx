@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import Form from "./common/form";
 import { createreply } from "../services/replyCreateService";
 // import { Redirect } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 const PostReply = (props) => {
   const [data, setData] = useState({
@@ -59,13 +60,14 @@ const PostReply = (props) => {
 
   return (
     <>
+    
       <ToastContainer />
-      <div className="container col-lg-6 shadow-lg p-3 mt-5 bg-body rounded">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
+      <div className="ReplyData_container">
+        <form  onSubmit={handleSubmit}>
+         
             <label htmlFor="description">Post Reply</label>
             <textarea
-              className="border border-primary form-control"
+              className="textArea_reply"
               style={{ height: 150 }}
               value={data.comment}
               onChange={handleChange}
@@ -75,11 +77,10 @@ const PostReply = (props) => {
             />
             {errors.comment && <div className="alert-info">{errors.comment}</div>}
             <div className="text-center">
-              <button className="btn btn-primary mt-4" disabled={validate()}>
+              <button className="Reply_btn" disabled={validate()}>
                 Post Reply
               </button>
             </div>
-          </div>
         </form>
       </div>
     </>

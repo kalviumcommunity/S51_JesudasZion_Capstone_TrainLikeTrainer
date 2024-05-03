@@ -7,18 +7,23 @@ import Form from "./common/form";
 import http from "../services/httpService";
 import { api } from "../config.js";
 import { createpost } from "../services/postCreateService";
-// import "../styles/newPost.css"; // Import your CSS file
+import "../CSS_files/forum.css";
+import NavBar from "../components/NavBar.jsx";
 
 const NewPost = () => {
   const [data, setData] = useState({ title: "", description: "", tags: [] });
-  const [errors, setErrors] = useState({ title: "", description: "", tags: [] });
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    tags: [],
+  });
   const [tags, setTags] = useState([]);
 
   const schema = {
     title: Joi.string().required().min(10).label("Title"),
     description: Joi.string().required().min(5).label("Description"),
     tags: Joi.array(),
-    user : Joi.object()
+    user: Joi.object(),
   };
 
   useEffect(() => {
@@ -77,63 +82,66 @@ const NewPost = () => {
   };
 
   return (
-    <React.Fragment>
-      <ToastContainer />
-      <div className="container-lg">
-        <h1 className="text-center m-2">Create a New Discussion</h1>
-        <div className="container m-4 p-4 rounded new-post-container">
-          <form onSubmit={handleSubmit}>
-            <Input
-              value={data.title}
-              onChange={handleChange}
-              label="Title"
-              name="title"
-              type="text"
-              error={errors.title}
-            />
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                value={data.description}
+    <>
+      <NavBar></NavBar>
+      <React.Fragment>
+        <ToastContainer />
+        <div className="container-reply">
+          
+          <div className="new-post-form">
+          <h1 className="new-post-title">Create a New Discussion</h1>
+            <form onSubmit={handleSubmit}>
+              <Input
+                value={data.title}
                 onChange={handleChange}
-                name="description"
-                type="description"
-                id="description"
-                className="form-control"
+                label="Title"
+                name="title"
+                type="text"
+                className="new-post-input"
+                error={errors.title}
               />
-              {errors.description && (
-                <div className="alert-info">{errors.description}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="tags">Related Tags</label>
-              <br />
-              {tags.map((tag) => (
-                <React.Fragment key={tag._id}>
-                  <label className="mr-3 ml-3">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      onChange={() => handleTagChange(tag._id)}
-                    />
-                    {tag.name}
-                  </label>
-                </React.Fragment>
-              ))}
-              {errors.tags && <div className="alert-info">{errors.tags}</div>}
-            </div>
-            <div className="text-center">
-              <button
-                className="btn btn-primary mt-4"
-                disabled={validate()}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  value={data.description}
+                  onChange={handleChange}
+                  name="description"
+                  id="description"
+                  className="new-post-textarea"
+                />
+                {errors.description && (
+                  <div className="new-post-alert">{errors.description}</div>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="tags">Related Tags</label>
+                <br />
+                {tags.map((tag) => (
+                  <React.Fragment key={tag._id}>
+                    <label className="mr-3 ml-3">
+                      <input
+                        className="new-post-checkbox"
+                        type="checkbox"
+                        onChange={() => handleTagChange(tag._id)}
+                      />
+                      {tag.name}
+                    </label>
+                  </React.Fragment>
+                ))}
+                {errors.tags && (
+                  <div className="new-post-alert">{errors.tags}</div>
+                )}
+              </div>
+              <div className="text-center">
+                <button className="new-post-submit" disabled={validate()}>
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </React.Fragment>
+      </React.Fragment>
+    </>
   );
 };
 
