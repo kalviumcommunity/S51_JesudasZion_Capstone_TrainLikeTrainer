@@ -28,6 +28,7 @@ const posts = require("./Routes/post");
 const tags = require("./Routes/tags");
 const replies = require("./Routes/replies");
 const getUser = require("./Routes/getUser");
+const getData = require("./Routes/getData");
 
 // Route handlers
 app.use("/signup", signupRouter);
@@ -42,6 +43,8 @@ app.use("/posts", posts);
 app.use("/tags", tags);
 app.use("/reply", replies);
 app.use("/" , getUser)
+app.use("/" , getData)
+
 // Starting the server with error handling
 const server = app.listen(process.env.API_PORT, async () => {
   const port = server.address().port;
