@@ -1,0 +1,36 @@
+#sports_header{
+    margin-top: 30px;
+    padding: 0 7%;
+}
+
+#sports_constainer{
+    padding: 0 7%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.sports_tab{
+    height: 300px;
+    width: 300px;
+    border-top: 2px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 2px solid black;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.sports_tab img{
+    height: 90%;
+    width: 100%;
+}
+
+.sports_tab div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    background-color: rgb(200, 200, 200);
+    color: black;
+}

@@ -78,7 +78,7 @@ function Home() {
           </div>
           <div id="dailyScore"></div>
           <div id="home_buttons">
-            <Link>
+            <Link to="/course">
               <div id="course" className="navi_home">
                 <img src={courseButton} alt="" />
                 <div>Course</div>
