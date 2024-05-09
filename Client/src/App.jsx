@@ -13,6 +13,7 @@ import DashboardView from './forum/DashBoardView'
 import NewPost from './forum/createpost'
 import Posts from './forum/Post'
 import PostPage from './forum/PostPage'
+import CoursePositions from './components/CoursePositions'
 
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
           <Route path='/dashboard' element={<DashboardView />}></Route>
           <Route path='/new-post' element={<NewPost />}></Route>
           <Route path="/post/:id" element={<PostPage />}/>
+          <Route path="/course/:name" element={<CoursePositions />}/>
+
         </Routes>
       </BrowserRouter>
     </>
