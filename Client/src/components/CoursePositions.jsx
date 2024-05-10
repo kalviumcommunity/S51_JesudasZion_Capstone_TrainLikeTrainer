@@ -30,7 +30,7 @@ function CoursePositions() {
         <div id='sports_constainer'>
         {data && data.map((pos,index)=>{
            return ( 
-            <Link to={`/course/Football${pos.name}`} key={index}>
+            <Link to={`/course/${name}/${pos.name}`} key={index}>
             <div className="sports_tab">
               <img src="" alt="" />
               <div>

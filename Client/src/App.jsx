@@ -11,9 +11,10 @@ import Account from './components/Account'
 import PrivateRoute from './components/PrivateRoute'
 import DashboardView from './forum/DashBoardView'
 import NewPost from './forum/createpost'
-import Posts from './forum/Post'
 import PostPage from './forum/PostPage'
 import CoursePositions from './components/CoursePositions'
+import SubCourse from './components/SubCourse'
+import FinalCourse from './components/FinalCourse'
 
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
           <Route path='/new-post' element={<NewPost />}></Route>
           <Route path="/post/:id" element={<PostPage />}/>
           <Route path="/course/:name" element={<CoursePositions />}/>
+          <Route path="/course/:name/:pos" element={<SubCourse />}/>
+          <Route path="/course/:name/:pos/:skill" element={<FinalCourse />}/>
 
         </Routes>
       </BrowserRouter>
