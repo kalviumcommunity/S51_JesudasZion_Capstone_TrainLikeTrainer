@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.put('/', async (req, res) => {
 
     const { email, password } = req.body;
 

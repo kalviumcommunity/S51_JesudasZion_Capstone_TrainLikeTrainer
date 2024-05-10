@@ -275,7 +275,7 @@ const Register = () => {
   };
 
   const handelChangePass = async () => {
-    const response1 = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange", {
+    const response1 = await axios.put("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange", {
       email: loginEmail,
       password: signupPassword,
     });
