@@ -155,6 +155,7 @@ const Register = () => {
       console.log("Protected data:", response.data);
       // if (response.data.)
       if (response.data.authenticated) {
+        // window.location.reload()
         navigate("/home");
       }
     } catch (error) {
@@ -181,23 +182,22 @@ const Register = () => {
           name: signupName,
         });
 
-        const userDataResponse = await axios.get(
-          `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${signupEmail}`
-        );
-        let temp = (userDataResponse.data);
-      updateUser({
-        name : temp.name,
-        email : temp.email,
-        password : temp.password,
-        _id : temp._id,
-        isAdmin: false,
-      })
-        setToken(response1.data.encryptedToken);
-        setCookie("token", response1.data.encryptedToken, 10);
+      //   const userDataResponse = await axios.get(
+      //     `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${signupEmail}`
+      //   );
+      //   let temp = (userDataResponse.data);
+      // updateUser({
+      //   name : temp.name,
+      //   email : temp.email,
+      //   password : temp.password,
+      //   _id : temp._id,
+      //   isAdmin: false,
+      // })
+        setToken(response1.data.token);
+        setCookie("token", response1.data.token, 10);
         setShowOTP(false);
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        // window.location.reload();
+        
       }
 
       // Show OTP popup after successful login
@@ -240,13 +240,13 @@ const Register = () => {
     const userObject = jwtDecode(response.credential);
     console.log(userObject);
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/googleSave", {
+      const response = await axios.post("http://localhost:3000/googleSave", {
         email: userObject.email,
         name: userObject.name,
       });
-
-      setToken(response.data.encryptedToken);
-      setCookie("token", response.data.encryptedToken, 10);
+      console.log(response)
+      setToken(response.data.token);
+      setCookie("token", response.data.token, 10);
       navigate("/home");
     } catch (error) {
       toast.error(error.response.data.message, {
