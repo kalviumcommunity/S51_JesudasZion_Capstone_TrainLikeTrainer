@@ -157,9 +157,9 @@ body {
     align-items: center;
   }
 
-  .footer{
+  /* .footer{
     margin: 0;
-  }
+  } */
 
   @media screen and (max-width: 584px) {
     .mission-img {

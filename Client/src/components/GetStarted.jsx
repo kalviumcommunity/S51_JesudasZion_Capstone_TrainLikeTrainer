@@ -100,8 +100,8 @@ function GetStarted() {
             </div>
         </div>
 
-        <div id='get_quote'>
-            <p>"I am not a perfectionist, but I like to feel  that things are done well. More important than that, I feel an endless need to learn, to improve, to evolve, not only to please the coach and the fans but also to feel satisfied with myself." - Cristiano Ronaldo</p>
+        <div id='get_quote' >
+            <p className='black-ops-one-regular'>"I am not a perfectionist, but I like to feel  that things are done well. More important than that, I feel an endless need to learn, to improve, to evolve, not only to please the coach and the fans but also to feel satisfied with myself." - Cristiano Ronaldo</p>
         </div>
 
         <div id='info_get'>
