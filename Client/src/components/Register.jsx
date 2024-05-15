@@ -31,6 +31,8 @@ const Register = () => {
   const [userNewPass, setUserNewPass] = useState("");
   const [userNewPassCon, setUserNewPassCon] = useState("");
   const [showEmailPass, setShowEmailPass] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+
 
   function setCookie(name, value, expiresInDays) {
     const date = new Date();
@@ -165,7 +167,12 @@ const Register = () => {
   };
 
   const toggleForm = () => {
-    setIsLogin(!isLogin);
+
+    setTransitioning(true);
+    setTimeout(() => {
+      setIsLogin(!isLogin);
+      setTransitioning(false);
+    }, 300);
   };
 
   const handleOTPSubmit = async () => {
@@ -307,10 +314,10 @@ const Register = () => {
     <div className="container">
       <img id="login_img" src={img1} alt="" />
       {isLogin ? (
-        <form onSubmit={handleLoginSubmit} className="form" noValidate>
+        <form onSubmit={handleLoginSubmit}  className={`form ${transitioning ? 'hidden' : ''}`} noValidate>
           <h2>Login</h2>
           <div id="login_type">
-            <div id="googleDiv">
+            <div id="googleDiv" className="button_google">
               {/* <img id='google_icon' src={img_google} alt="" />
                 <p>Login using Google</p> */}
             </div>
@@ -363,7 +370,7 @@ const Register = () => {
           </div>
         </form>
       ) : (
-        <form onSubmit={handleSignupSubmit} className="form" noValidate>
+        <form onSubmit={handleSignupSubmit} className={`form ${transitioning ? 'hidden' : ''}`} noValidate>
           <h2>Sign Up</h2>
 
           <div id="login_type">

@@ -6,6 +6,7 @@
     padding: 0 18%;
     align-items: center;
     transition: all 0.5s ease;
+    perspective: 900px
   }
 
   #login_img{
@@ -24,6 +25,22 @@
     border-radius: 10px;
     
   }
+
+
+.form {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+  transform: rotateY(0);
+  backface-visibility: hidden; /* Hide the back face when rotated */
+}
+
+.form.hidden {
+  opacity: 0;
+  transform: rotateY(180deg);
+}
+
+
+
 
   .form h2{
     text-align: center;
