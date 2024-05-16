@@ -2,19 +2,43 @@
     display: flex;
     height: 100vh;
     border: 1px solid black;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 18%;
     align-items: center;
     transition: all 0.5s ease;
-    perspective: 900px
+    perspective: 900px;
+    background-image: url('../assets/login_img10.webp');
+    background-size: cover;
   }
 
   #login_img{
     /* height: 60%; */
     width: 40%;
   }
+
+  .loading{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input-error {
+    border: 1px solid red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
   
   .form {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(100, 100, 100, 0.4);
+    opacity: 0.5;
     padding: 40px 40px;
     max-width: 500px;
     width: 100%;
@@ -23,6 +47,7 @@
     border-bottom: 10px solid black;
     border-left: 2px solid black;
     border-radius: 10px;
+    color: white;
     
   }
 
@@ -39,20 +64,26 @@
   transform: rotateY(180deg);
 }
 
-
-
-
   .form h2{
     text-align: center;
     margin-bottom: 60px;
   }
   
   .input {
+    color: white;
+    backdrop-filter: blur(16px) saturate(180%);
+    /* -webkit-backdrop-filter: blur(16px) saturate(180%); */
+    background-color: rgba(204, 204, 204, 0.5);
+    
+    opacity: 0.5;
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  .input::placeholder{
+    color: white;
   }
   
   .button {
@@ -89,6 +120,7 @@
 
   .login_methods{
     border: 1px solid silver;
+    background-color: white;
     width: 48%;
     display: flex;
     justify-content: space-around;
@@ -134,14 +166,14 @@
     display: flex;
     margin-top: 30px;
     justify-content: space-around;
-    color: black;
+    color: white;
     font-weight: 500;
   
     
   }
 
   .under_login{
-    color: black;
+    color: white;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: blue;
@@ -149,6 +181,7 @@
   }
 
   .under_login:hover{
+
     color: blue;
     text-decoration-thickness: 2px;
     transition-duration: 0.2s;

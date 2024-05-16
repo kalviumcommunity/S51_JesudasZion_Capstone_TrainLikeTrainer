@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../schema/user');
+const { User } = require("../schema/user");
 const nodemailer =  require("nodemailer")
 
 require('dotenv').config()

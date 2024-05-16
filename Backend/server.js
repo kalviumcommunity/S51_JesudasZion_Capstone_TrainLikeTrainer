@@ -37,7 +37,7 @@ app.use("/protected", protected);
 app.use("/optVerify", optVerify);
 app.use("/user", user);
 app.use("/mail", mail);
-app.use("/paasChange", passChange);
+app.use("/passChange", passChange);
 app.use("/googleSave", googleSave);
 app.use("/posts", posts);
 app.use("/tags", tags);
