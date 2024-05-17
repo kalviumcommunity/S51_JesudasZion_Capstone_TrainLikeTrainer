@@ -1,0 +1,110 @@
+
+.container_account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 89vh;
+}  
+  .card {
+    width:400px;
+    height: 80vh;
+    background-color: #efefef;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 10px;
+    border-top: 3px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .image{
+    height: 40%;  
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+  }
+  .image button{
+    height:100%;
+    width: 100%;
+  }
+  .image img {
+    transition: all 0.5s;
+    height: 100%;
+    width : 80%;
+  }
+  
+  /* .card:hover .image img {
+    transform: scale(1.5);
+  } */
+  
+  .btn {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+  }
+  
+  .name {
+    font-size: 22px;
+    font-weight: bold;
+    font-variant: small-caps;
+  }
+  
+  .idd {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .idd1 {
+    font-size: 12px;
+  }
+  
+  .number {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .follow {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444444;
+  }
+  
+  .btn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px;
+  }
+  
+  .text span {
+    font-size: 13px;
+    color: #545454;
+    font-weight: 500;
+  }
+  
+  .icons i {
+    font-size: 19px;
+  }
+  
+  .join {
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: bold;
+  }
+  
+  .date {
+    background-color: #ccc;
+  }
+
+
+  

@@ -67,7 +67,7 @@ const Register = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/login",
+        "http://localhost:3000/login",
         {
           email: loginEmail,
           password: loginPassword,
@@ -86,6 +86,7 @@ const Register = () => {
         window.location.reload();
       }, 500);
     } catch (error) {
+      setLoading(false)
       toast.error(error.response.message, {
         position: "top-right",
         autoClose: 5000,
@@ -145,6 +146,7 @@ const Register = () => {
       // Show OTP popup after successful login
       setShowOTP(true);
     } catch (error) {
+      setLoading(false)
       toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
@@ -284,28 +286,31 @@ const Register = () => {
       console.log(response);
       setOtp(response.data.code);
     } catch (error) {
+      console.error("Error logging in:", error);
       toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
       });
-      console.error("Error logging in:", error);
+      
     }
   };
 
   const handelChangePass = async () => {
-    const response1 = await axios.put(
-      "http://localhost:3000/passChange",
-      {
-        email: loginEmail,
-        password: userNewPass,
-      }
-    );
-    // setToken(response1.data.encryptedToken);
-    // setCookie("token", response1.data.encryptedToken, 10);
-    setShowOTP(false);
-    setShowNewPass(true);
-    setShowOTPPass(false);
-    // window.location.reload();
+    console.log(1)
+    try{
+      const response1 = await axios.put(
+        "http://localhost:3000/passChange",
+        {
+          email: loginEmail,
+          password: userNewPass,
+        }
+      );
+      setShowOTP(false);
+      setShowNewPass(false);
+      setShowOTPPass(false);
+    }catch (err){
+      console.log(err)
+    }
   };
 
   useEffect(() => {

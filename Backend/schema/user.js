@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
     maxlength: 255,
     unique: true,
   },
-  
   password: {
     type: String,
     required: false,
@@ -27,8 +26,19 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  profilePhoto: {
+    type: String,
+    required: false,
+    maxlength: 1024,
+    default: 'https://www.shareicon.net/data/512x512/2016/07/21/799323_user_512x512.png', // Default link
+  },
+  description: {
+    type: String,
+    required: false,
+    maxlength: 500,
+    default : ""
+  },
 });
-const User = mongoose.model("User", userSchema);
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
@@ -38,7 +48,9 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-// for registering validattion
+const User = mongoose.model("User", userSchema);
+
+// for registering validation
 function validateUser(user) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -48,8 +60,10 @@ function validateUser(user) {
         tlds: { allow: ["com", "net"] },
       })
       .required(),
-    password: Joi.string().required(),
+    password: Joi.string().required().min(5).max(1024),
     username: Joi.string().required().min(3),
+    profilePhoto: Joi.string().uri().max(1024).optional(),
+    description: Joi.string().max(500).optional(),
   });
   return schema.validate(user);
 }

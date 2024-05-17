@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require('bcrypt');
 
 const { User } = require("../schema/user");
 const validateUser = require("../dataValidator");
@@ -13,12 +14,16 @@ router.put("/", async (req, res) => {
     // Find the user by email
     const user = await  User.findOne({email : email});
 
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
     // Update user's password
-    user.password = password;
+    const hashedPassword = await bcrypt.hash(password, 10)
+    user.password = hashedPassword;
+    user.save()
+
 
     return res.json({ message: "Password updated successfully" });
   } catch (err) {
