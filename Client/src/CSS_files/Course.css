@@ -19,20 +19,37 @@
     border-left: 2px solid black;
   border-radius: 10px;
   margin-top: 20px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  flex-direction: column;
+  /* padding: 30px; */
 }
 
 .sports_tab img{
-    height: 90%;
-    width: 100%;
+    height: 40%;
+    width: 40%;
+    justify-self: center;
 }
 
-.sports_tab div{
+.image_course{
+  width: 100%;
+  height: 90%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.name_course{
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     height: 10%;
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(219, 225, 228);
+    justify-self: end;
     color: black;
+    font-weight: 700;
 }
 
 .final-container {

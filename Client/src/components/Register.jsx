@@ -11,8 +11,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 const Register = () => {
-  // console.log(user);
   const navigate = useNavigate();
   const { form } = useParams();
   const [isLogin, setIsLogin] = useState(true);
@@ -32,7 +33,7 @@ const Register = () => {
   const [userNewPassCon, setUserNewPassCon] = useState("");
   const [showEmailPass, setShowEmailPass] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   function setCookie(name, value, expiresInDays) {
     const date = new Date();
@@ -63,24 +64,29 @@ const Register = () => {
       });
       return;
     }
+    setLoading(true);
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/login", {
-        email: loginEmail,
-        password: loginPassword,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/login",
+        {
+          email: loginEmail,
+          password: loginPassword,
+        }
+      );
 
       // Fetch user data after successful login
       const userDataResponse = await axios.get(
         `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${loginEmail}`
       );
-    
-      console.log(response)
+
+      console.log(response);
       setToken(response.data.token);
       setCookie("token", response.data.token, 10);
       setTimeout(() => {
         window.location.reload();
       }, 500);
     } catch (error) {
+      setLoading(false)
       toast.error(error.response.message, {
         position: "top-right",
         autoClose: 5000,
@@ -128,15 +134,19 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/signup", {
-        email: signupEmail,
-      });
+      const response = await axios.post(
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/signup",
+        {
+          email: signupEmail,
+        }
+      );
 
       setOtp(response.data.code);
 
       // Show OTP popup after successful login
       setShowOTP(true);
     } catch (error) {
+      setLoading(false)
       toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
@@ -149,9 +159,12 @@ const Register = () => {
     try {
       // Make a GET request to the protected route
 
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected", {
-        token: getCookie("token"),
-      });
+      const response = await axios.post(
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected",
+        {
+          token: getCookie("token"),
+        }
+      );
 
       // Handle the response
       console.log("Protected data:", response.data);
@@ -159,6 +172,7 @@ const Register = () => {
       if (response.data.authenticated) {
         // window.location.reload()
         navigate("/home");
+        setLoading(false);
       }
     } catch (error) {
       // Handle errors
@@ -167,7 +181,6 @@ const Register = () => {
   };
 
   const toggleForm = () => {
-
     setTransitioning(true);
     setTimeout(() => {
       setIsLogin(!isLogin);
@@ -177,34 +190,28 @@ const Register = () => {
 
   const handleOTPSubmit = async () => {
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify", {
-        otp: otp,
-        userOtp: userOtp,
-      });
+      const response = await axios.post(
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify",
+        {
+          otp: otp,
+          userOtp: userOtp,
+        }
+      );
 
       if (response.data.auth) {
-        const response1 = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user", {
-          email: signupEmail,
-          password: signupPassword,
-          name: signupName,
-        });
+        const response1 = await axios.post(
+          "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user",
+          {
+            email: signupEmail,
+            password: signupPassword,
+            name: signupName,
+          }
+        );
 
-      //   const userDataResponse = await axios.get(
-      //     `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${signupEmail}`
-      //   );
-      //   let temp = (userDataResponse.data);
-      // updateUser({
-      //   name : temp.name,
-      //   email : temp.email,
-      //   password : temp.password,
-      //   _id : temp._id,
-      //   isAdmin: false,
-      // })
         setToken(response1.data.token);
         setCookie("token", response1.data.token, 10);
         setShowOTP(false);
         // window.location.reload();
-        
       }
 
       // Show OTP popup after successful login
@@ -224,10 +231,13 @@ const Register = () => {
   const handleOTPPassSubmit = async () => {
     console.log(userOtp);
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify", {
-        otp: otp,
-        userOtp: userOtp,
-      });
+      const response = await axios.post(
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify",
+        {
+          otp: otp,
+          userOtp: userOtp,
+        }
+      );
       if (response.data.auth) {
         setShowNewPass(true);
         setShowOTPPass(false);
@@ -251,7 +261,7 @@ const Register = () => {
         email: userObject.email,
         name: userObject.name,
       });
-      console.log(response)
+      console.log(response);
       setToken(response.data.token);
       setCookie("token", response.data.token, 10);
       navigate("/home");
@@ -266,297 +276,337 @@ const Register = () => {
 
   const handelEmailPass = async () => {
     try {
-      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/mail", {
-        email: loginEmail,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/mail",
+        {
+          email: loginEmail,
+        }
+      );
       setShowEmailPass(true);
       console.log(response);
       setOtp(response.data.code);
     } catch (error) {
+      console.error("Error logging in:", error);
       toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
       });
-      console.error("Error logging in:", error);
+      
     }
   };
 
   const handelChangePass = async () => {
-    const response1 = await axios.put("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange", {
-      email: loginEmail,
-      password: signupPassword,
-    });
-    setToken(response1.data.encryptedToken);
-    setCookie("token", response1.data.encryptedToken, 10);
-    setShowOTP(false);
-    setShowNewPass(true);
-    setShowOTPPass(false);
-    window.location.reload();
+    console.log(1)
+    try{
+      const response1 = await axios.put(
+        "http://localhost:3000/passChange",
+        {
+          email: loginEmail,
+          password: userNewPass,
+        }
+      );
+      setShowOTP(false);
+      setShowNewPass(false);
+      setShowOTPPass(false);
+    }catch (err){
+      console.log(err)
+    }
   };
 
   useEffect(() => {
-    // console.log(token)
+    
     fetchProtectedData();
     setIsLogin(form == "login");
 
-    google.accounts.id.initialize({
-      client_id:
-        "715331636246-9n9b52a1n67q0hbo77dm76eedbmhl50t.apps.googleusercontent.com",
-      callback: handleGoogleResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("googleDiv"), {
-      size: "large",
-    });
+    setTimeout(()=>{
+      google.accounts.id.initialize({
+        client_id:
+          "715331636246-9n9b52a1n67q0hbo77dm76eedbmhl50t.apps.googleusercontent.com",
+        callback: handleGoogleResponse,
+      });
+  
+      google.accounts.id.renderButton(document.getElementById("googleDiv"), {
+        size: "large",
+      });
+    },2000)
   }, []);
 
   return (
     <div className="container">
-      <img id="login_img" src={img1} alt="" />
-      {isLogin ? (
-        <form onSubmit={handleLoginSubmit}  className={`form ${transitioning ? 'hidden' : ''}`} noValidate>
-          <h2>Login</h2>
-          <div id="login_type">
-            <div id="googleDiv" className="button_google">
-              {/* <img id='google_icon' src={img_google} alt="" />
-                <p>Login using Google</p> */}
-            </div>
+      {!loading ? (
+        <>
+          {/* <img id="login_img" src={img1} alt="" /> */}
+          {isLogin ? (
+            <form
+              onSubmit={handleLoginSubmit}
+              className={`form ${transitioning ? "hidden" : ""}`}
+              noValidate
+            >
+              <h2>Login</h2>
+              <div id="login_type">
+                <div id="googleDiv" className="button_google">
+                  {/* <img id='google_icon' src={img_google} alt="" />
+                  <p>Login using Google</p> */}
+                </div>
 
-            <div className="login_methods">
-              <FontAwesomeIcon
-                icon={faFacebook}
-                style={{ color: "blue", fontSize: "20px" }}
+                <div className="login_methods">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    style={{ color: "blue", fontSize: "20px" }}
+                  />
+                  <p>Login using Facebook</p>
+                </div>
+              </div>
+              <div className="orr_div">
+                <hr />
+                <p>OR</p>
+                <hr />
+              </div>
+
+              <input
+                type="email"
+                placeholder="Email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+                className="input"
+                id="login-email"
               />
-              <p>Login using Facebook</p>
-            </div>
-          </div>
-          <div className="orr_div">
-            <hr />
-            <p>OR</p>
-            <hr />
-          </div>
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
-            required
-            className="input"
-            id="login-email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-            required
-            className="input"
-            id="login-password"
-          />
-          <button type="submit" className="button">
-            Login
-          </button>
-          <div className="login_veri">
-            <p>
-              New User?{" "}
-              <span onClick={toggleForm} className="link under_login">
-                Sign up
-              </span>
-            </p>
-            <p className="under_login" onClick={handelForget}>
-              Forgot password?
-            </p>
-          </div>
-        </form>
-      ) : (
-        <form onSubmit={handleSignupSubmit} className={`form ${transitioning ? 'hidden' : ''}`} noValidate>
-          <h2>Sign Up</h2>
-
-          <div id="login_type">
-            <div id="googleDiv">
-              {/* <img id='google_icon' src={img_google} alt="" />
-                <p>Login using Google</p> */}
-            </div>
-            <div className="login_methods">
-              <FontAwesomeIcon
-                icon={faFacebook}
-                style={{ color: "blue", fontSize: "20px" }}
+              <input
+                type="password"
+                placeholder="Password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+                className="input"
+                id="login-password"
               />
-              <p>Login using Facebook</p>
-            </div>
-          </div>
-          <div className="orr_div">
-            <hr />
-            <p>OR</p>
-            <hr />
-          </div>
-
-          <input
-            type="text"
-            placeholder="Name"
-            value={signupName}
-            onChange={(e) => setSignupName(e.target.value)}
-            required
-            className="input"
-            id="signup-name"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={signupEmail}
-            onChange={(e) => setSignupEmail(e.target.value)}
-            required
-            className="input"
-            id="signup-email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-            required
-            className="input"
-            id="signup-password"
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            className="input"
-            id="confirm-password"
-          />
-          <button type="submit" className="button">
-            Sign Up
-          </button>
-          <div className="login_veri">
-            <p>
-              Existing User?{" "}
-              <span onClick={toggleForm} className="link under_login">
+              <button type="submit" className="button">
                 Login
-              </span>
-            </p>
-          </div>
-        </form>
-      )}
-
-      {/* OTP Popup */}
-      {showOTP && (
-        <div className="otp-popup">
-          <div className="otp-content">
-            <h1>OTP Verification</h1>
-            <div id="green_tab">
-              <p>
-                We have sent the Verification code to you Via email , check and
-                fill below .
-              </p>
-            </div>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              value={userOtp}
-              onChange={(e) => setUserOtp(e.target.value)}
-              className="otp-input"
-            />
-            <div id="pop_buttons">
-              <button onClick={handleOTPSubmit} className="otp-submit-button">
-                Submit
               </button>
-              <button
-                onClick={() => setShowOTP(false)}
-                className="otp-close-button"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+              <div className="login_veri">
+                <p>
+                  New User?{" "}
+                  <span onClick={toggleForm} className="link under_login">
+                    Sign up
+                  </span>
+                </p>
+                <p className="under_login" onClick={handelForget}>
+                  Forgot password?
+                </p>
+              </div>
+            </form>
+          ) : (
+            <form
+              onSubmit={handleSignupSubmit}
+              className={`form ${transitioning ? "hidden" : ""}`}
+              noValidate
+            >
+              <h2>Sign Up</h2>
 
-      {showOTPPass && (
-        <div className="otp-popup">
-          <div className="otp-content">
-            <h1>OTP Verification</h1>
-            <div id="green_tab">
-              <p>
-                {showOTPPass && !showEmailPass
-                  ? "Enter your email for verification."
-                  : "We have sent the verification code to you via email, check and fill below."}
-              </p>
-            </div>
-            <input
-              type="text"
-              placeholder="Enter The Email"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              className="otp-input"
-            />
-            {showEmailPass && (
+              <div id="login_type">
+                <div id="googleDiv">
+                  {/* <img id='google_icon' src={img_google} alt="" />
+                  <p>Login using Google</p> */}
+                </div>
+                <div className="login_methods">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    style={{ color: "blue", fontSize: "20px" }}
+                  />
+                  <p>Login using Facebook</p>
+                </div>
+              </div>
+              <div className="orr_div">
+                <hr />
+                <p>OR</p>
+                <hr />
+              </div>
+
               <input
                 type="text"
-                placeholder="Enter OTP"
-                value={userOtp}
-                onChange={(e) => setUserOtp(e.target.value)}
-                className="otp-input"
+                placeholder="Name"
+                value={signupName}
+                onChange={(e) => setSignupName(e.target.value)}
+                required
+                className="input"
+                id="signup-name"
               />
-            )}
-            <div id="pop_buttons">
-              <button
-                onClick={showEmailPass ? handleOTPPassSubmit : handelEmailPass}
-                className="otp-submit-button"
-              >
-                {showEmailPass ? "Submit" : "Confirm"}
+              <input
+                type="email"
+                placeholder="Email"
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
+                required
+                className="input"
+                id="signup-email"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+                required
+                className="input"
+                id="signup-password"
+              />
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="input"
+                id="confirm-password"
+              />
+              <button type="submit" className="button">
+                Sign Up
               </button>
-              <button
-                onClick={() => setShowOTPPass(false)}
-                className="otp-close-button"
-              >
-                Close
-              </button>
+              <div className="login_veri">
+                <p>
+                  Existing User?{" "}
+                  <span onClick={toggleForm} className="link under_login">
+                    Login
+                  </span>
+                </p>
+              </div>
+            </form>
+          )}
+
+          {/* OTP Popup */}
+          {showOTP && (
+            <div className="otp-popup">
+              <div className="otp-content">
+                <h1>OTP Verification</h1>
+                <div id="green_tab">
+                  <p>
+                    We have sent the Verification code to you Via email , check
+                    and fill below .
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Enter OTP"
+                  value={userOtp}
+                  onChange={(e) => setUserOtp(e.target.value)}
+                  className="otp-input"
+                />
+                <div id="pop_buttons">
+                  <button
+                    onClick={handleOTPSubmit}
+                    className="otp-submit-button"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={() => setShowOTP(false)}
+                    className="otp-close-button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
+
+          {showOTPPass && (
+            <div className="otp-popup">
+              <div className="otp-content">
+                <h1>OTP Verification</h1>
+                <div id="green_tab">
+                  <p>
+                    {showOTPPass && !showEmailPass
+                      ? "Enter your email for verification."
+                      : "We have sent the verification code to you via email, check and fill below."}
+                  </p>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Enter The Email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  className="otp-input"
+                />
+                {showEmailPass && (
+                  <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={userOtp}
+                    onChange={(e) => setUserOtp(e.target.value)}
+                    className="otp-input"
+                  />
+                )}
+                <div id="pop_buttons">
+                  <button
+                    onClick={
+                      showEmailPass ? handleOTPPassSubmit : handelEmailPass
+                    }
+                    className="otp-submit-button"
+                  >
+                    {showEmailPass ? "Submit" : "Confirm"}
+                  </button>
+                  <button
+                    onClick={() => setShowOTPPass(false)}
+                    className="otp-close-button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {showNewPass && (
+            <div className="otp-popup">
+              <div className="otp-content">
+                <h1>OTP Verification</h1>
+                <div id="gray_tab">
+                  <p>Enter the New password Below</p>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Enter New Password"
+                  value={userNewPass}
+                  onChange={(e) => setUserNewPass(e.target.value)}
+                  className="otp-input"
+                />
+                <input
+                  type="text"
+                  placeholder="Confirm Password"
+                  value={userNewPassCon}
+                  onChange={(e) => setUserNewPassCon(e.target.value)}
+                  className="otp-input"
+                />
+
+                <div id="pop_buttons">
+                  <button
+                    onClick={handelChangePass}
+                    className="otp-submit-button"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={() => setShowNewPass(false)}
+                    className="otp-close-button"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          <ToastContainer />
+        </>
+      ) : (
+        <div className="loading">
+          <ClipLoader
+            loading={loading}
+            size={150}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
         </div>
       )}
-
-      {showNewPass && (
-        <div className="otp-popup">
-          <div className="otp-content">
-            <h1>OTP Verification</h1>
-            <div id="gray_tab">
-              <p>Enter the New password Below</p>
-            </div>
-            <input
-              type="text"
-              placeholder="Enter New Password"
-              value={userNewPass}
-              onChange={(e) => setUserNewPass(e.target.value)}
-              className="otp-input"
-            />
-            <input
-              type="text"
-              placeholder="Confirm Password"
-              value={userNewPassCon}
-              onChange={(e) => setUserNewPassCon(e.target.value)}
-              className="otp-input"
-            />
-
-            <div id="pop_buttons">
-              <button onClick={handelChangePass} className="otp-submit-button">
-                Submit
-              </button>
-              <button
-                onClick={() => setShowNewPass(false)}
-                className="otp-close-button"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      <ToastContainer />
     </div>
   );
 };

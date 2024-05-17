@@ -33,7 +33,7 @@ function Home() {
       const responseData = await response.json();
       setData(responseData.articles)
       setLoading(false)
-      console.log(responseData.articles); // Log the response data to the console
+      // console.log(responseData.articles); // Log the response data to the console
     } catch (error) {
       console.error('Error fetching sports news:', error.message);
     }

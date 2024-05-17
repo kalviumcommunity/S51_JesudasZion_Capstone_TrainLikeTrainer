@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign(
-            { _id: user._id, isAdmin: user.isAdmin , email : user.email },
+            { _id: user._id, isAdmin: user.isAdmin, email: user.email, profilePhoto: user.profilePhoto, description: user.description },
             process.env.SECRET_TOKEN
           );
           res.header("x-auth-token")

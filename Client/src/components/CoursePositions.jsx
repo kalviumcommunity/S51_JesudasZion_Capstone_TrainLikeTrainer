@@ -4,12 +4,10 @@ import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import { Link } from 'react-router-dom'
 
-
-
 function CoursePositions() {
     const {name} = useParams()
-
-    const [data ,setData] = useState([])
+    const [toggledPos, setToggledPos] = useState(null) // State for toggled position
+    const [data, setData] = useState([])
 
     const fetch = async() =>{
         try{
@@ -24,26 +22,37 @@ function CoursePositions() {
     useEffect(()=>{
         fetch()
     },[])
-  return (
-    <>
-    <NavBar></NavBar>
-        <div id='sports_constainer'>
-        {data && data.map((pos,index)=>{
-           return ( 
-            <Link to={`/course/${name}/${pos.name}`} key={index}>
-            <div className="sports_tab">
-              <img src="" alt="" />
-              <div>
-                <p>{pos.name}</p>
-              </div>
+
+    const handleToggle = (posName) => {
+        setToggledPos(prevPos => prevPos === posName ? null : posName)
+    }
+
+    return (
+        <>
+            <NavBar />
+            <div id='sports_container'>
+                {data && data.map((pos, index) => (
+                    <div key={index}>
+                        <div onClick={() => handleToggle(pos.name)} className="sports_tab">
+                            <img src="" alt="" />
+                            <div>
+                                <p>{pos.name}</p>
+                            </div>
+                        </div>
+                        {toggledPos === pos.name && (
+                            <div>
+                                {pos.characteristics.map((item, index) => (
+                                    <div key={index}>
+                                        {item.name}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
-          </Link>
-           )
-        })
-        }
-        </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default CoursePositions

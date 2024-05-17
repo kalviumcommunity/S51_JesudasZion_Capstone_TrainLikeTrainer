@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 
         if (existingUser) {
             const token = jwt.sign(
-                { _id: existingUser._id, isAdmin: existingUser.isAdmin , email : existingUser.email },
+                { _id: existingUser._id, isAdmin: existingUser.isAdmin, email: existingUser.email, profilePhoto: existingUser.profilePhoto, description: existingUser.description },
                 process.env.SECRET_TOKEN
               );
             res.header("x-auth-token").json({ token });
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign(
-            { _id: newUser._id, isAdmin: newUser.isAdmin , email : newUser.email },
+            {  _id: newUser._id, isAdmin: newUser.isAdmin, email: newUser.email, profilePhoto: newUser.profilePhoto, description: newUser.description  },
             process.env.SECRET_TOKEN
           );
         res.header("x-auth-token").json({ token });
