@@ -318,15 +318,17 @@ const Register = () => {
     fetchProtectedData();
     setIsLogin(form == "login");
 
-    google.accounts.id.initialize({
-      client_id:
-        "715331636246-9n9b52a1n67q0hbo77dm76eedbmhl50t.apps.googleusercontent.com",
-      callback: handleGoogleResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("googleDiv"), {
-      size: "large",
-    });
+    setTimeout(()=>{
+      google.accounts.id.initialize({
+        client_id:
+          "715331636246-9n9b52a1n67q0hbo77dm76eedbmhl50t.apps.googleusercontent.com",
+        callback: handleGoogleResponse,
+      });
+  
+      google.accounts.id.renderButton(document.getElementById("googleDiv"), {
+        size: "large",
+      });
+    },2000)
   }, []);
 
   return (

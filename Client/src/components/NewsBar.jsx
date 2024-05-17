@@ -9,7 +9,7 @@ function NewsBar({ data }) {
     // Open the link in a new tab when the div is clicked
     window.open(data.url, '_blank');
   };
-  console.log(data)
+  // console.log(data)
   return (
     <>
       <div className='newsContent' onClick={handleNewsClick}>
