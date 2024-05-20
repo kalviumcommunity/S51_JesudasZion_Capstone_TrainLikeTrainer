@@ -15,9 +15,9 @@ function Course() {
     <>
       <NavBar></NavBar>
       <h1 id="sports_header">Choose your sports.</h1>
-      <div id="sports_constainer">
+      <div id="sports_constainer_main">
         <Link to="/course/Football">
-          <div className="sports_tab"  style={{backgroundColor: '#ADD8E6'}}>
+          <div className="sports_tabs"  style={{backgroundColor: '#ADD8E6'}}>
             <div className="image_course">
               <img src={football} alt="" />
             </div>
@@ -27,7 +27,7 @@ function Course() {
           </div>
         </Link>
         <Link to="/course/Cricket">
-          <div className="sports_tab"  style={{backgroundColor: '#90EE90'}}>
+          <div className="sports_tabs"  style={{backgroundColor: '#90EE90'}}>
             <div className="image_course">
             <img src={Cricket} alt="" />
             </div>
@@ -38,7 +38,7 @@ function Course() {
         </Link>
 
         <Link className="b" to="/course/Basketball">
-          <div className="sports_tab"  style={{backgroundColor: '#E6E6FA'}}>
+          <div className="sports_tabs"  style={{backgroundColor: '#E6E6FA'}}>
             <div className="image_course">
             <img src={basketball} alt="" />
             </div>
@@ -49,7 +49,7 @@ function Course() {
         </Link>
 
         <Link  to="/course/Tennis">
-          <div className="sports_tab" style={{backgroundColor: '#FFE5B4'}}>
+          <div className="sports_tabs" style={{backgroundColor: '#FFE5B4'}}>
            <div className="image_course">
            <img src={tennis} alt="" />
            </div>
@@ -60,7 +60,7 @@ function Course() {
         </Link>
 
         <Link to="/course/Badminton">
-          <div className="sports_tab"  style={{backgroundColor: '#AFEEEE'}}>
+          <div className="sports_tabs"  style={{backgroundColor: '#AFEEEE'}}>
            <div className="image_course"> <img src={badminton} alt="" /></div>
             <div className="name_course">
               <p>Badminton</p>
