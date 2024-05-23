@@ -2,22 +2,57 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavBar from './NavBar';
+import { jwtDecode } from "jwt-decode";
+
+
 
 
 const FinalCourse = () => {
   const { name, pos, skill } = useParams();
   const [data, setData] = useState([]);
+  const [useData , setUserData] = useState()
+
+  const userHandel = async () => {
+    const tokenCookie = document.cookie
+      .split(";")
+      .find((cookie) => cookie.trim().startsWith("token="));
+
+    // Extract token value
+    const token = tokenCookie ? tokenCookie.split("=")[1] : null;
+
+    if (token) {
+      try {
+        // Step 2: Decode the token
+        const decoded = jwtDecode(token);
+        setUserData(decoded)
+        // Fetch user data after successful login
+        
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  };
+
+  const handelMark = async() =>{
+    console.log({name : skill , _id : useData._id})
+    try{
+      const response = axios.put("http://localhost:3000/mark" , {name : skill , _id : useData._id})
+    }catch(err){
+      console.err(err)
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/sports/${name}`);
+        console.log(response.data.positions);
         setData(response.data.positions);
       } catch (error) {
         console.error(error);
       }
     };
-
+    userHandel();
     fetchData();
   }, [name]);
 
@@ -30,11 +65,13 @@ const FinalCourse = () => {
   };
 
   return (
+  
     <>
+    {console.log(data)}
       <NavBar />
       <div className="final-container">
         <h1 className="final-heading">{pos} - {skill}</h1>
-        {data.map(position => {
+        {data && data.map(position => {
           if (position.name.toLowerCase() === pos.toLowerCase()) {
             const characteristic = position.characteristics.find(
               characteristic => characteristic.name.toLowerCase() === skill.toLowerCase()
@@ -56,7 +93,7 @@ const FinalCourse = () => {
           }
           return null;
         })}
-        <button className='mark_button'>Mark As Done</button>
+        <button onClick={handelMark} className='mark_button'>Mark As Done</button>
       </div>
     </>
   );

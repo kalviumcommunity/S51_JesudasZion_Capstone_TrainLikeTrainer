@@ -29,6 +29,8 @@ const tags = require("./Routes/tags");
 const replies = require("./Routes/replies");
 const getUser = require("./Routes/getUser");
 const getData = require("./Routes/getData");
+const mark = require("./Routes/mark");
+
 
 // Route handlers
 app.use("/signup", signupRouter);
@@ -44,6 +46,7 @@ app.use("/tags", tags);
 app.use("/reply", replies);
 app.use("/" , getUser)
 app.use("/" , getData)
+app.use("/mark" , mark)
 
 // Starting the server with error handling
 const server = app.listen(process.env.API_PORT, async () => {
