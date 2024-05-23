@@ -82,9 +82,10 @@ const Register = () => {
       console.log(response);
       setToken(response.data.token);
       setCookie("token", response.data.token, 10);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      navigate("/home");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 500);
     } catch (error) {
       setLoading(false)
       toast.error(error.response.message, {
@@ -328,7 +329,7 @@ const Register = () => {
       google.accounts.id.renderButton(document.getElementById("googleDiv"), {
         size: "large",
       });
-    },2000)
+    },0)
   }, []);
 
   return (

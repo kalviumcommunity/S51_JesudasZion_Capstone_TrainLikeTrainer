@@ -2,6 +2,22 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 
+// Define lesson schema
+const lessonSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 50,
+  },
+  time: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
+});
+
+// Define user schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -38,8 +54,13 @@ const userSchema = new mongoose.Schema({
     maxlength: 500,
     default : ""
   },
+  lessons: {
+    type: [lessonSchema],
+    default: [],
+  }
 });
 
+// Generate auth token method
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     { _id: this._id, isAdmin: this.isAdmin },
@@ -48,9 +69,10 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
+// Define User model
 const User = mongoose.model("User", userSchema);
 
-// for registering validation
+// Validate user registration
 function validateUser(user) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
@@ -64,11 +86,15 @@ function validateUser(user) {
     username: Joi.string().required().min(3),
     profilePhoto: Joi.string().uri().max(1024).optional(),
     description: Joi.string().max(500).optional(),
+    lessons: Joi.array().items(Joi.object({
+      name: Joi.string().min(3).max(50).required(),
+      time: Joi.date().required()
+    })).optional()
   });
   return schema.validate(user);
 }
 
-// for login validation
+// Validate user login
 function validates(user) {
   const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
@@ -76,6 +102,7 @@ function validates(user) {
   });
   return schema.validate(user);
 }
+
 
 exports.User = User;
 exports.validates = validates;

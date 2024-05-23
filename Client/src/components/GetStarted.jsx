@@ -51,7 +51,7 @@ function GetStarted() {
 
   useEffect(() => {
     fetchProtectedData();
-  }, []);
+  }, [token]);
 
   return (
     <>
