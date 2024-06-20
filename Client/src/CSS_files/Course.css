@@ -15,6 +15,10 @@
     /* justify-content: space-between; */
 }
 
+.completed{
+  background-color: green;
+}
+
 .sports_tab{
     height: 100px;
     width: 100%;

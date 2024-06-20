@@ -88,11 +88,11 @@ const Register = () => {
       // }, 500);
     } catch (error) {
       setLoading(false)
-      toast.error(error.response.message, {
+      toast.error(error.response.data.message, {
         position: "top-right",
         autoClose: 5000,
       });
-      console.error("Error logging in:", error);
+      console.error("Error logging in:", error.response.data.message);
     }
   };
 
@@ -596,7 +596,6 @@ const Register = () => {
               </div>
             </div>
           )}
-          <ToastContainer />
         </>
       ) : (
         <div className="loading">
@@ -608,6 +607,9 @@ const Register = () => {
           />
         </div>
       )}
+
+<ToastContainer />
+
     </div>
   );
 };

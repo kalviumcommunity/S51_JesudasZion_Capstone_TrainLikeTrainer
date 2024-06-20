@@ -4,43 +4,38 @@ import { useParams } from 'react-router-dom';
 import NavBar from './NavBar';
 import { jwtDecode } from "jwt-decode";
 
-
-
-
 const FinalCourse = () => {
   const { name, pos, skill } = useParams();
   const [data, setData] = useState([]);
-  const [useData , setUserData] = useState()
+  const [userData, setUserData] = useState();
+  const [isMarked, setIsMarked] = useState(false);
 
-  const userHandel = async () => {
+  const userHandle = async () => {
     const tokenCookie = document.cookie
       .split(";")
       .find((cookie) => cookie.trim().startsWith("token="));
 
-    // Extract token value
     const token = tokenCookie ? tokenCookie.split("=")[1] : null;
 
     if (token) {
       try {
-        // Step 2: Decode the token
         const decoded = jwtDecode(token);
-        setUserData(decoded)
-        // Fetch user data after successful login
-        
+        setUserData(decoded);
       } catch (error) {
         console.error("Error decoding token:", error);
       }
     }
   };
 
-  const handelMark = async() =>{
-    console.log({name : skill , _id : useData._id})
-    try{
-      const response = axios.put("http://localhost:3000/mark" , {name : skill , _id : useData._id})
-    }catch(err){
-      console.err(err)
+  const handleMark = async () => {
+    console.log({ name: skill, _id: userData._id });
+    try {
+      await axios.put("http://localhost:3000/mark", { name: skill, _id: userData._id });
+      setIsMarked(true);
+    } catch (err) {
+      console.error(err);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +47,7 @@ const FinalCourse = () => {
         console.error(error);
       }
     };
-    userHandel();
+    userHandle();
     fetchData();
   }, [name]);
 
@@ -65,9 +60,8 @@ const FinalCourse = () => {
   };
 
   return (
-  
     <>
-    {console.log(data)}
+      {console.log(data)}
       <NavBar />
       <div className="final-container">
         <h1 className="final-heading">{pos} - {skill}</h1>
@@ -93,7 +87,10 @@ const FinalCourse = () => {
           }
           return null;
         })}
-        <button onClick={handelMark} className='mark_button'>Mark As Done</button>
+        <button onClick={handleMark} className='mark_button' disabled={isMarked}>
+          {isMarked ? 'Marked As Done' : 'Mark As Done'}
+          {console.log(isMarked)}
+        </button>
       </div>
     </>
   );

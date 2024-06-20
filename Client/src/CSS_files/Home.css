@@ -4,7 +4,7 @@
     display: flex;
     padding: 0px 12%;
     justify-content: space-between;
-
+    /* transition: 1.3s */
 }
 
 .homeImg{
