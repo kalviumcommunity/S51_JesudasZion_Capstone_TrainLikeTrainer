@@ -31,7 +31,7 @@ To run Train Like a Trainer locally on your machine, follow these steps:
 
 3. **Install Dependencies:**
 
-4. **Start the Development Server:**[https://s51-jesudaszion-capstone-trainliketrainer.onrender.com](#My server Link)
+4. **Start the Development Server:**[https://s51-jesudaszion-capstone-trainliketrainer.onrender.com]
 
 5. **Open Your Browser:**
 Visit http://localhost:3000 to view the application.
