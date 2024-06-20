@@ -5,11 +5,11 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-  origin: "http://localhost:5173", // Replace this with the actual origin of your frontend application
-  credentials: true, // Allow credentials (cookies)
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "http://localhost:5173", // Replace this with the actual origin of your frontend application
+//   credentials: true, // Allow credentials (cookies)
+// };
+app.use(cors());
 // Home Route
 app.get("/", (req, res) => {
   res.send(`Welcome and DB is ${isConnected() ? "connected" : "disconnected"}`);

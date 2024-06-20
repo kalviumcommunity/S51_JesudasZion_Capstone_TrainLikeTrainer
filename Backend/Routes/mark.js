@@ -7,21 +7,22 @@ const router = express.Router();
 router.put("/", async (req, res) => {
   try {
     const { name, _id } = req.body;
-    // console.log(req.body);
 
-    // Find the user by _id
     const user = await User.findOne({ _id: _id });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Add new lesson to user's lessons array
+    const lessonExists = user.lessons.some(lesson => lesson.name === name);
+    if (lessonExists) {
+      return res.status(400).json({ error: "Lesson with this name already exists" });
+    }
+
     user.lessons.push({
       name: name,
       time: new Date()
     });
 
-    // Save the updated user document
     await user.save();
 
     return res.json({ message: "Success", user });
