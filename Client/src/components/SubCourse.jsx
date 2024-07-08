@@ -10,7 +10,7 @@ function SubCourse() {
 
   const fetch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/sports/${name}`);
+      const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
       let temp = response.data.positions.filter((item) => {
         console.log(item.name, pos);
         return item.name == pos;

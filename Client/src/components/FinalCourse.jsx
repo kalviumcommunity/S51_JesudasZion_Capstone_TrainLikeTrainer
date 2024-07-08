@@ -40,7 +40,7 @@ const FinalCourse = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/sports/${name}`);
+        const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
         console.log(response.data.positions);
         setData(response.data.positions);
       } catch (error) {
@@ -64,12 +64,13 @@ const FinalCourse = () => {
       {console.log(data)}
       <NavBar />
       <div className="final-container">
+        <div id='final-left'>
         <h1 className="final-heading">{pos} - {skill}</h1>
         {data && data.map(position => {
           if (position.name.toLowerCase() === pos.toLowerCase()) {
             const characteristic = position.characteristics.find(
               characteristic => characteristic.name.toLowerCase() === skill.toLowerCase()
-            );
+            )
             return (
               <div className="final-characteristic" key={position.name}>
                 {characteristic && characteristic.content.map((item, index) => (
@@ -87,10 +88,17 @@ const FinalCourse = () => {
           }
           return null;
         })}
+        </div>
+        
+
+        <div id='final-right'>
+          <div className='quotes_final'></div>
         <button onClick={handleMark} className='mark_button' disabled={isMarked}>
           {isMarked ? 'Marked As Done' : 'Mark As Done'}
           {console.log(isMarked)}
         </button>
+        </div>
+        
       </div>
     </>
   );

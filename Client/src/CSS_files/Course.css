@@ -142,15 +142,33 @@ color: black;
 }
 
 .final-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    display: flex;
+    padding: 0 12%;
+    justify-content: space-between;
+    margin-top: 40px;
   }
-  
+  #final-left{
+    width: 70%;
+  }
+
+  #final-right{
+    width: 20%;
+    background-color: rgb(13, 51, 153);
+    height: 80vh;
+    position: fixed;
+    right: 11%;
+    padding: 0 10px;
+  }
+
+  .quotes_final{
+    height: 93%;
+    border: white 2px solid;
+    padding: 10px;
+  }
   .final-heading {
-    font-size: 24px;
+    font-size: 34px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
   
   .final-characteristic {

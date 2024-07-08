@@ -3,6 +3,7 @@ import logo from "../assets/Logo_Train.png";
 import searchIcon from "../assets/searchIcon.png";
 import courseIcon from "../assets/course.png";
 import homeIcon from "../assets/homeIcon.png";
+import aiIcon from "../assets/ai.png";
 import "../CSS_files/Nav.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,7 +31,7 @@ function NavBar() {
 
   const fetch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/sports/Football`);
+      const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/Football`);
       setData(response.data.positions);
       console.log(response.data);
       let transformedData = [];
@@ -113,7 +114,17 @@ function NavBar() {
                   <p>Courses</p>
                 </div>
               </Link>
+
+              <Link to="/ai
+              ">
+                <div className="buttons_navigator" id="nav_buttons_home">
+                  <img src={aiIcon} alt="" />
+                  <p>AI</p>
+                </div>
+              </Link>
             </div>
+
+            
 
             <div id="search_bar">
               <div>

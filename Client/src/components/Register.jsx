@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../CSS_files/Register.css";
-import img1 from "../assets/img_login.png";
+import img1 from "../assets/login_image9.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
@@ -67,7 +67,7 @@ const Register = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/login",
         {
           email: loginEmail,
           password: loginPassword,
@@ -258,7 +258,7 @@ const Register = () => {
     const userObject = jwtDecode(response.credential);
     console.log(userObject);
     try {
-      const response = await axios.post("http://localhost:3000/googleSave", {
+      const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/googleSave", {
         email: userObject.email,
         name: userObject.name,
       });
@@ -278,7 +278,7 @@ const Register = () => {
   const handelEmailPass = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/mail",
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/mail",
         {
           email: loginEmail,
         }
@@ -300,7 +300,7 @@ const Register = () => {
     console.log(1)
     try{
       const response1 = await axios.put(
-        "http://localhost:3000/passChange",
+        "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange",
         {
           email: loginEmail,
           password: userNewPass,

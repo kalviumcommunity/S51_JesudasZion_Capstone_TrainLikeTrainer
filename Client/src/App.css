@@ -6,12 +6,18 @@
     box-sizing: border-box;
 }
 
-/* #root{
-  display: flex;
+#root{
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
+  overflow-x: hidden; */
+  /* background-color: #1E1E1E; */
+}
+
+/* html{
+  background-color: #1E1E1E;
 } */
+
 #logo{
   height: 90%;
 }
@@ -21,7 +27,8 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 7%;
+    /* padding: 0px 7%; */
+    color: rgba(30, 129, 191, 0.348);
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     z-index: 3;
 }
