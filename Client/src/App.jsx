@@ -15,7 +15,8 @@ import PostPage from './forum/PostPage';
 import CoursePositions from './components/CoursePositions';
 import SubCourse from './components/SubCourse';
 import FinalCourse from './components/FinalCourse';
-
+import Main from './ai/components/main/Main';
+import ContextProvider from './context/Context.jsx'
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -47,6 +48,7 @@ function App() {
 
   return (
     <>
+    <ContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<GetStarted />} ></Route>
@@ -61,8 +63,11 @@ function App() {
           <Route path="/course/:name" element={<CoursePositions />} />
           <Route path="/course/:name/:pos" element={<SubCourse />} />
           <Route path="/course/:name/:pos/:skill" element={<FinalCourse />} />
+          <Route path='/ai' element={<Main />} ></Route>
+          
         </Routes>
       </BrowserRouter>
+      </ContextProvider>
     </>
   );
 }

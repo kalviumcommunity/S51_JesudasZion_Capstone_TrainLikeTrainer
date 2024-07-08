@@ -37,7 +37,7 @@ function CoursePositions() {
 
   const fetch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/sports/${name}`);
+      const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
       setData(response.data.positions);
       console.log(response);
     } catch (err) {

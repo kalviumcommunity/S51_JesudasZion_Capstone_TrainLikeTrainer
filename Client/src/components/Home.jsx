@@ -27,9 +27,9 @@ function Home() {
     datasets: [{
         label: 'Completed Items per Day',
         data: [0, 0, 0, 0, 0],
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
+        backgroundColor: '#1A4B6F', // Background color #1A4B6F
+        borderColor: '#466D88',      // Border color #466D88
+        borderWidth: 50,
     }]
 })
   const navigate = useNavigate();
@@ -91,9 +91,9 @@ function Home() {
         datasets: [{
             label: 'Completed Items per Day',
             data: counts,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
+            backgroundColor: 'rgba(30, 129, 191, 0.211)', // Background color #1A4B6F
+        borderColor: 'rgba(45, 109, 149, 0.611)',      // Border color #466D88
+        borderWidth: 2,
         }]
     };
 }
@@ -176,6 +176,14 @@ function Home() {
                   <img src={forum} alt="" />
                 </div>
                 <div className="title_home">Forum</div>
+              </div>
+            </Link>
+            <Link to="/ai">
+              <div id="ai" className="navi_home">
+                <div className="homeImg">
+                  <img src={forum} alt="" />
+                </div>
+                <div className="title_home">ai</div>
               </div>
             </Link>
           </div>
