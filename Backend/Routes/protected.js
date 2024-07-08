@@ -9,11 +9,11 @@ const cookieParser = require('cookie-parser');
 router.use(cors());
 router.use(cookieParser());
 
-const corsOptions = {
-  origin: 'http://localhost:5173', // Replace this with the actual origin of your frontend application
-  credentials: true // Allow credentials (cookies)
-};
-router.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: 'http://localhost:5173', // Replace this with the actual origin of your frontend application
+//   credentials: true // Allow credentials (cookies)
+// };
+router.use(cors());
 
 router.post('/', verifyToken, (req, res) => {
   if (req.user) {

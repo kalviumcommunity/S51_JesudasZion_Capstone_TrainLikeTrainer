@@ -27,7 +27,7 @@ router.put("/", async (req, res) => {
 
     return res.json({ message: "Success", user });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(500).json({ error: "Something went wrong" });
   }
 });

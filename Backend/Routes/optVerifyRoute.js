@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     var tempOtp = 0
     const { otp,userOtp} = req.body;
-    console.log(otp)
+    // console.log(otp)
     jwt.verify(otp, process.env.OTP_TOKEN, (err, decoded) => {
         if (err) {
             console.error("JWT verification failed:", err);
@@ -16,13 +16,13 @@ router.post('/', async (req, res) => {
         } else {
            
             tempOtp = decoded.code
-            console.log("d",decoded.code)
+            // console.log("d",decoded.code)
         }
     });
 
     try {
-        console.log(tempOtp,userOtp)
-        console.log(otp) 
+        // console.log(tempOtp,userOtp)
+        // console.log(otp) 
         if (tempOtp !== userOtp) {
             return res.status(400).json({ message: 'Invalid OTP' ,auth : false});
         }else{
