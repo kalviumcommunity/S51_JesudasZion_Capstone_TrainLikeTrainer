@@ -70,7 +70,6 @@ const NewPost = () => {
 
     try {
       const { response } = await createpost(data);
-      console.log(response);
       window.location = "/dashboard";
     } catch (ex) {}
   };

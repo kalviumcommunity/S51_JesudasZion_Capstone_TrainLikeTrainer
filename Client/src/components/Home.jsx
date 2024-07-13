@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import "../CSS_files/Home.css";
 import axios from "axios";
 import NewsBar from "./NewsBar";
+import aiIcon from "../assets/ai.png";
 import forum from "../assets/stadium.png";
 import courseButton from "../assets/sport.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,6 +23,7 @@ function Home() {
   const [showNews, setShowNews] = useState(false); // State to track visibility of news section
   const [isMobile, setIsMobile] = useState(window.innerWidth < 770); // State to track if the screen is mobile
   const [userData , setUserData] = useState()
+  const [name,setName] = useState()
   const [chart , setChart] = useState({
     labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
     datasets: [{
@@ -44,14 +46,11 @@ function Home() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded);
         const userDataResponse = await axios.get(
           `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${decoded.email}`
         );
-
+  
         setUserData(userDataResponse.data.lessons);
-        // console.log(decoded);
-        // console.log(userDataResponse.data.lessons);
         setChart(processData(userDataResponse.data.lessons))
 
       } catch (error) {
@@ -112,7 +111,6 @@ function Home() {
       const responseData = await response.json();
       setData(responseData.articles);
       setLoading(false);
-      // console.log(responseData.articles); // Log the response data to the console
     } catch (error) {
       console.error("Error fetching sports news:", error.message);
     }
@@ -144,7 +142,6 @@ function Home() {
     setIsMobile(window.innerWidth < 770);
   };
   const handelForum = () => {
-    console.log("123");
     navigate("/dashboard");
   };
 
@@ -154,12 +151,11 @@ function Home() {
       <div id="homeContainer">
         <section id="left_home">
           <div id="userWelcome">
-            <p>Hi Jesudas</p>
+            <p>Hi Sportie</p>
             <p>It's nice to see you again.</p>
           </div>
           <div id="dailyScore">
-            {console.log(chart)}
-            <Bar data={chart}  />
+            <Bar data={chart}  style={{ width: '100%', height: '100%' }} />
           </div>
           <div id="home_buttons">
             <Link to="/course">
@@ -181,7 +177,7 @@ function Home() {
             <Link to="/ai">
               <div id="ai" className="navi_home">
                 <div className="homeImg">
-                  <img src={forum} alt="" />
+                  <img src={aiIcon} alt="" className="invert"/>
                 </div>
                 <div className="title_home">ai</div>
               </div>
@@ -236,7 +232,7 @@ function Home() {
               ) : (
                 <div id="newsContainer">
                   {data.map((item, index) => (
-                    // console.log(item)
+  
                     <NewsBar key={index} data={item} />
                   ))}
                 </div>

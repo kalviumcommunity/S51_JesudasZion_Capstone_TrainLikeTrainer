@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { assets } from "../../assets/assets";
 import "./main.css";
 import  {Context} from "../../../context/Context";
+import NavBar from "../../../components/NavBar";
 const Main = () => {
-	console.log(useContext(Context))
 	const {
 		onSent,
 		recentPrompt,
@@ -19,58 +19,55 @@ const Main = () => {
 		};
 	return (
 		<div className="main">
-			<div className="nav">
-				<p>Gemini</p>
-				<img src={assets.user} alt="" />
-			</div>
+			<NavBar></NavBar>
 			<div className="main-container">
 				{!showResults ? (
 					<>
 						<div className="greet">
 							<p>
-								<span>Hello , Dev </span>
+								<span>Hello  </span>
 							</p>
 							<p>How Can i Help You Today?</p>
 						</div>
-						<div className="cards">
+						<div className="cards_ai">
 							<div
-								className="card"
+								className="card_ai"
 								onClick={() =>
-									handleCardClick("Suggest Some Place To Visit In Kerala")
+									handleCardClick("Suggest Some workout to improve sprinting speed")
 								}
 							>
-								<p>Suggest Some Place To Visit In Kerala </p>
+								<p>Suggest Some workout to improve sprinting speed</p>
 								<img src={assets.compass_icon} alt="" />
 							</div>
 							<div
-								className="card"
+								className="card_ai"
 								onClick={() =>
 									handleCardClick(
-										"Brainstorm team bonding activities for our work retreat"
+										"Brainstorm team bonding activities for our cup celebration"
 									)
 								}
 							>
-								<p>Brainstorm team bonding activities for our work retreat </p>
+								<p>Brainstorm team bonding activities for our cup celebration </p>
 								<img src={assets.message_icon} alt="" />
 							</div>
 							<div
-								className="card"
+								className="card_ai"
 								onClick={() =>
-									handleCardClick("How to Create a Gyroscope using Disc?")
+									handleCardClick("How to join a new football club")
 								}
 							>
-								<p>How to Create a Gyroscope using Disc?</p>
+								<p>How to join a new football club?</p>
 								<img src={assets.bulb_icon} alt="" />
 							</div>
 							<div
-								className="card"
+								className="card_ai"
 								onClick={() => {
 									handleCardClick(
-										"Create a Script for the youtube video about coding "
+										"Suggest some jersy design"
 									);
 								}}
 							>
-								<p>Create a Script for the youtube video about coding </p>
+								<p>Suggest some jersy design for my new team</p>
 								<img src={assets.code_icon} alt="" />
 							</div>
 						</div>
@@ -90,6 +87,7 @@ const Main = () => {
 									<hr />
 								</div>
 							) : (
+								
 								<p dangerouslySetInnerHTML={{ __html: resultData }}></p>
 							)}
 						</div>
@@ -107,8 +105,7 @@ const Main = () => {
 							placeholder="Enter the Prompt Here"
 						/>
 						<div>
-							<img src={assets.gallery_icon} alt="" />
-							<img src={assets.mic_icon} alt="" />
+
 							<img
 								src={assets.send_icon}
 								alt=""
@@ -120,7 +117,7 @@ const Main = () => {
 					</div>
 					<div className="bottom-info">
 						<p>
-							Gemini may display inaccurate info, including about people, so
+							AI may display inaccurate info, including about people, so
 							double-check its responses. Your privacy & Gemini Apps
 						</p>
 					</div>

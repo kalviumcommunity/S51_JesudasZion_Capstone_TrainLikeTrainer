@@ -22,7 +22,6 @@ function NavBar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("hello");
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate("/");
   };
@@ -33,7 +32,6 @@ function NavBar() {
     try {
       const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/Football`);
       setData(response.data.positions);
-      console.log(response.data);
       let transformedData = [];
       response.data.positions.forEach((position) => {
         position.characteristics.forEach((characteristic) => {
@@ -44,7 +42,6 @@ function NavBar() {
           });
         });
       });
-      console.log(transformedData);
       setSearchData(transformedData);
     } catch (err) {
       console.error(err);

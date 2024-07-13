@@ -21,14 +21,11 @@ function CoursePositions() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded);
         const userDataResponse = await axios.get(
           `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${decoded.email}`
         );
 
         setUserData(userDataResponse.data);
-        console.log(decoded);
-        console.log(userDataResponse.data);
       } catch (error) {
         console.error("Error decoding token:", error);
       }
@@ -39,7 +36,6 @@ function CoursePositions() {
     try {
       const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
       setData(response.data.positions);
-      console.log(response);
     } catch (err) {
       console.error(err);
     }
@@ -55,7 +51,6 @@ function CoursePositions() {
   };
 
   const isLessonCompleted = (lessonName) => {
-    console.log(userData && userData.lessons.some((lesson) => lesson.name === lessonName))
     return userData && userData.lessons.some((lesson) => lesson.name === lessonName);
   };
 

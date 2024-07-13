@@ -33,7 +33,6 @@ const DashboardView = () => {
       const { data: tags } = await http.get(api.tagsEndPoint);
 
       setAllPosts([...allposts]);
-      console.log([...allPosts])
       setTags([
         {
           _id: "1",
@@ -80,9 +79,7 @@ const DashboardView = () => {
   }
 
   const filtered = selectedTag._id === "1" ? allPosts : getPosts();
-  console.log(filtered)
   const posts = paginate(filtered, currentPage, pageSize);
-  console.log(posts , "posts")
 
 //   if (allPosts.length === 0)
 //     return <p>There are no posts in the database!</p>;

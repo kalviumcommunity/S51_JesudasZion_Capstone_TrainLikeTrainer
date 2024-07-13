@@ -19,6 +19,11 @@
   background-color: green;
 }
 
+.header_course h1{
+  margin-left: 7%;
+  /* margin-top: 10; */
+}
+
 .sports_tab{
     height: 100px;
     width: 100%;
@@ -158,11 +163,12 @@ color: black;
     position: fixed;
     right: 11%;
     padding: 0 10px;
+    border: 3px solid black;
   }
 
   .quotes_final{
     height: 93%;
-    border: white 2px solid;
+    /* border: white 2px solid; */
     padding: 10px;
   }
   .final-heading {
@@ -202,13 +208,29 @@ color: black;
     
   }
 
-  .mark_button{
-    width: 100%;
-    height: 30px;
-    font-size: larger;
-    font-weight: bold;
-    background-color: rgb(135, 178, 135);
-    color: rgb(12, 83, 12);
-    border-color: rgb(12, 83, 12);
-  }
+.quotes_final p {
+
   
+    font-size:45px;
+      /* font-weight: bold; */
+      color: white;
+      margin-bottom: 50px;
+      font-family: "Black Ops One", system-ui;
+      /* font-weight: 400; */
+}
+
+.quotes_final {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mark_button{
+  background-color: rgb(173, 198, 231);
+  height: 30px;
+  width: 100%;
+  border: unset;
+  border-radius: 5px;
+  font-size: large;
+  font-weight:600 ;
+}

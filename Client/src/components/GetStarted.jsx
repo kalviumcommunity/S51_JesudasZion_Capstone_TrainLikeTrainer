@@ -40,7 +40,6 @@ function GetStarted() {
 
     try {
       const response = await axios.post('https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected',{"token" :getCookie("token")});
-      console.log('Protected data:', response.data);
       if (response.data.authenticated){
         navigate("/home")
       }

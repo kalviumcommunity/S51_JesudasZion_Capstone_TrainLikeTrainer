@@ -35,7 +35,6 @@ function App() {
   const fetchProtectedData = async () => {
     try {
       const response = await axios.post('https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected', { "token": getCookie("token") });
-      console.log(response.data.authenticated);
       setIsAuthenticated(response.data.authenticated);
     } catch (error) {
       console.error('Failed to fetch protected data:', error);

@@ -28,9 +28,8 @@ const FinalCourse = () => {
   };
 
   const handleMark = async () => {
-    console.log({ name: skill, _id: userData._id });
     try {
-      await axios.put("http://localhost:3000/mark", { name: skill, _id: userData._id });
+      await axios.put("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/mark", { name: skill, _id: userData._id });
       setIsMarked(true);
     } catch (err) {
       console.error(err);
@@ -41,7 +40,6 @@ const FinalCourse = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
-        console.log(response.data.positions);
         setData(response.data.positions);
       } catch (error) {
         console.error(error);
@@ -61,7 +59,6 @@ const FinalCourse = () => {
 
   return (
     <>
-      {console.log(data)}
       <NavBar />
       <div className="final-container">
         <div id='final-left'>
@@ -92,10 +89,11 @@ const FinalCourse = () => {
         
 
         <div id='final-right'>
-          <div className='quotes_final'></div>
+          <div className='quotes_final'>
+            <p>"Never Say Never because limits, like fears, are often just illusions."</p>
+          </div>
         <button onClick={handleMark} className='mark_button' disabled={isMarked}>
           {isMarked ? 'Marked As Done' : 'Mark As Done'}
-          {console.log(isMarked)}
         </button>
         </div>
         

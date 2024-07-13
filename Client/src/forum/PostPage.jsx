@@ -30,7 +30,6 @@ const PostPage = () => {
         const { data: repliesData } = await http.get(api.repliesEndPoint + id);
         setPost(postData);
         setReplies(repliesData);
-        console.log(repliesData, " reply");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -56,8 +55,6 @@ const PostPage = () => {
 
           // Update state with decoded token
           setUSer(userDataResponse.data);
-          console.log(decoded);
-          console.log(userDataResponse.data);
         } catch (error) {
           console.error("Error decoding token:", error);
         }

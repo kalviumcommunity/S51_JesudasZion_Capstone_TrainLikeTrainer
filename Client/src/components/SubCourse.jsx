@@ -12,10 +12,9 @@ function SubCourse() {
     try {
       const response = await axios.get(`https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/sports/${name}`);
       let temp = response.data.positions.filter((item) => {
-        console.log(item.name, pos);
         return item.name == pos;
       });
-      console.log(temp[0]);
+
       setReqData(temp[0]);
     } catch (err) {
       console.error(err);
