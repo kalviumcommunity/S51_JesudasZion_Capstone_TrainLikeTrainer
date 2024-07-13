@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const PrivateRoute = ({ Component, isAuthenticated }) => {
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,6 @@ const PrivateRoute = ({ Component, isAuthenticated }) => {
   const fetchProtectedData = async () => {
     try {
       const response = await axios.post('https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/protected', { "token": getCookie("token") });
-      console.log(response.data.authenticated);
       setIsAuth(response.data.authenticated);
       setLoading(false);
     } catch (error) {
@@ -35,7 +35,18 @@ const PrivateRoute = ({ Component, isAuthenticated }) => {
   }, [getCookie("token")]);
 
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a proper loading spinner
+    return <div className="loader-container"style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh', // Adjust height as needed
+    }}>
+    <ClipLoader
+      color="black" // Color of the spinner
+      loading={loading}
+      size={190} // Size of the spinner
+    />
+  </div>// You can replace this with a proper loading spinner
   }
 
   return isAuth ? <Component /> : <Navigate to="/reg/login" />;

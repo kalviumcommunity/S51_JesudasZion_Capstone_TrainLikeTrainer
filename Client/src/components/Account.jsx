@@ -13,7 +13,6 @@ const Account = () => {
 
   const handelProfileEdit = () =>{
     if (toggle){
-      console.log(descriptionRef.current.value)
     }
     setToggel((prev) => !prev)
   }
@@ -37,8 +36,6 @@ const Account = () => {
 
         // Update state with decoded token
         setUser(userDataResponse.data);
-        console.log(decoded);
-        console.log(userDataResponse.data);
       } catch (error) {
         console.error("Error decoding token:", error);
       }

@@ -212,6 +212,7 @@ const Register = () => {
         setToken(response1.data.token);
         setCookie("token", response1.data.token, 10);
         setShowOTP(false);
+        navigate("/home")
         // window.location.reload();
       }
 

@@ -2,14 +2,12 @@ import React from 'react';
 import "../CSS_files/Home.css";
 
 function NewsBar({ data }) {
-  // console.log(data);
 
   // Define a function to handle click event
   const handleNewsClick = () => {
     // Open the link in a new tab when the div is clicked
     window.open(data.url, '_blank');
   };
-  // console.log(data)
   return (
     <>
       <div className='newsContent' onClick={handleNewsClick}>

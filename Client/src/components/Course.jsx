@@ -20,18 +20,18 @@ function Course() {
       </div>
       <div id="sports_constainer_main">
         <Link to="/course/Football">
-          <div className="sports_tabs"  >
-            <div className="image_course">
+          <div className="sports_tabs" style={{ backgroundColor: '#FFDAB9' }} >
+            <div className="image_course" >
               <img src={football} alt="" />
             </div>
-            <div className="name_course">
+            <div className="name_course" >
               <p>Football</p>
             </div>
           </div>
         </Link>
         <Link to="/course/Cricket">
           <div className="sports_tabs"  >
-            <div className="image_course">
+            <div className="image_course"style={{ backgroundColor: '#87CEEB' }}>
             <img src={Cricket} alt="" />
             </div>
             <div className="name_course">
@@ -42,7 +42,7 @@ function Course() {
 
         <Link className="b" to="/course/Basketball">
           <div className="sports_tabs"  >
-            <div className="image_course">
+            <div className="image_course" style={{ backgroundColor: '#FF7F50' }}>
             <img src={basketball} alt="" />
             </div>
             <div className="name_course">
@@ -53,7 +53,7 @@ function Course() {
 
         <Link  to="/course/Tennis">
           <div className="sports_tabs" >
-           <div className="image_course">
+           <div className="image_course" style={{ backgroundColor: '#FFD700' }}>
            <img src={tennis} alt="" />
            </div>
             <div className="name_course">
@@ -63,7 +63,7 @@ function Course() {
         </Link>
 
         <Link to="/course/Badminton">
-          <div className="sports_tabs"  >
+          <div className="sports_tabs" style={{ backgroundColor: '#98FB98' }} >
            <div className="image_course"> <img src={badminton} alt="" /></div>
             <div className="name_course">
               <p>Badminton</p>

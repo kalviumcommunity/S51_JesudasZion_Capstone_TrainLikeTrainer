@@ -25,18 +25,19 @@
     font-size: 56px;
     color:#c4c7c5;
     font-weight: 500px;
+    /* background-color: #4b90ff; */
 }
 .main .greet span{
-    background: -webkit-linear-gradient(16deg,#4b90ff,#ff5546);
+    background: rgb(53, 93, 164);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.main .cards{
+.main .cards_ai{
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
     gap: 15px;
 }
-.main .card{
+.main .card_ai{
     height: 200px;
     padding: 15px;
     background-color: #f0f4f9;
@@ -44,7 +45,7 @@
     position: relative;
     cursor: pointer;
 }
-.main .card img{
+.main .card_ai img{
     width: 35px;
     padding: 5px;
     position: absolute;
@@ -53,11 +54,11 @@
     right: 10px;
     background: white;
 }
-.main .card p{
+.main .card_ai p{
     color: #585858;
     font-size: 17px;
 }
-.main .card:hover{
+.main .card_ai:hover{
     background-color: #dfe4ea;
 }
 .main-bottom {
