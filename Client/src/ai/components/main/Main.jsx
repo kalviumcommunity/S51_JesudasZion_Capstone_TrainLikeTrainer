@@ -17,6 +17,13 @@ const Main = () => {
     const handleCardClick = (promptText) => {
 			setInput(promptText);
 		};
+
+		const handleKeyPress = (e) => {
+			if (e.key === 'Enter') {
+			  onSent();
+			  setInput("")
+			}
+		  };
 	return (
 		<div className="main">
 			<NavBar></NavBar>
@@ -75,7 +82,6 @@ const Main = () => {
 				) : (
 					<div className="result">
 						<div className="result-title">
-							<img src={assets.user} alt="" />
 							<p>{recentPrompt}</p>
 						</div>
 						<div className="result-data">
@@ -100,6 +106,7 @@ const Main = () => {
 							onChange={(e) => {
 								setInput(e.target.value);
 							}}
+							onKeyPress={handleKeyPress}
 							value={input}
 							type="text"
 							placeholder="Enter the Prompt Here"
@@ -110,6 +117,7 @@ const Main = () => {
 								src={assets.send_icon}
 								alt=""
 								onClick={() => {
+									setInput("")
 									onSent();
 								}}
 							/>

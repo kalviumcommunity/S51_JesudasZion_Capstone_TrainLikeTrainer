@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../CSS_files/Register.css";
-import img1 from "../assets/login_image9.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
@@ -79,7 +76,6 @@ const Register = () => {
         `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${loginEmail}`
       );
 
-      console.log(response);
       setToken(response.data.token);
       setCookie("token", response.data.token, 10);
       navigate("/home");
@@ -168,7 +164,6 @@ const Register = () => {
       );
 
       // Handle the response
-      console.log("Protected data:", response.data);
       // if (response.data.)
       if (response.data.authenticated) {
         // window.location.reload()
@@ -231,7 +226,6 @@ const Register = () => {
   };
 
   const handleOTPPassSubmit = async () => {
-    console.log(userOtp);
     try {
       const response = await axios.post(
         "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/optVerify",
@@ -257,13 +251,11 @@ const Register = () => {
 
   async function handleGoogleResponse(response) {
     const userObject = jwtDecode(response.credential);
-    console.log(userObject);
     try {
       const response = await axios.post("https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/googleSave", {
         email: userObject.email,
         name: userObject.name,
       });
-      console.log(response);
       setToken(response.data.token);
       setCookie("token", response.data.token, 10);
       navigate("/home");
@@ -285,7 +277,6 @@ const Register = () => {
         }
       );
       setShowEmailPass(true);
-      console.log(response);
       setOtp(response.data.code);
     } catch (error) {
       console.error("Error logging in:", error);
@@ -298,7 +289,6 @@ const Register = () => {
   };
 
   const handelChangePass = async () => {
-    console.log(1)
     try{
       const response1 = await axios.put(
         "https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/passChange",
@@ -351,13 +341,6 @@ const Register = () => {
                   <p>Login using Google</p> */}
                 </div>
 
-                <div className="login_methods">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    style={{ color: "blue", fontSize: "20px" }}
-                  />
-                  <p>Login using Facebook</p>
-                </div>
               </div>
               <div className="orr_div">
                 <hr />
@@ -410,13 +393,6 @@ const Register = () => {
                 <div id="googleDiv">
                   {/* <img id='google_icon' src={img_google} alt="" />
                   <p>Login using Google</p> */}
-                </div>
-                <div className="login_methods">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    style={{ color: "blue", fontSize: "20px" }}
-                  />
-                  <p>Login using Facebook</p>
                 </div>
               </div>
               <div className="orr_div">
