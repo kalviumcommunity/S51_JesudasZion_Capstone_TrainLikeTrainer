@@ -49,7 +49,7 @@ function Home() {
         const userDataResponse = await axios.get(
           `https://s51-jesudaszion-capstone-trainliketrainer.onrender.com/user/${decoded.email}`
         );
-  
+        setName(userDataResponse.data.name)
         setUserData(userDataResponse.data.lessons);
         setChart(processData(userDataResponse.data.lessons))
 
@@ -151,7 +151,7 @@ function Home() {
       <div id="homeContainer">
         <section id="left_home">
           <div id="userWelcome">
-            <p>Hi Sportie</p>
+            <p>Hi {name}</p>
             <p>It's nice to see you again.</p>
           </div>
           <div id="dailyScore">
