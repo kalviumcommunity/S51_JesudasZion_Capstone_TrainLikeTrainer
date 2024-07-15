@@ -52,7 +52,7 @@ router.post("/create", auth , async (req, res) => {
   }
 });
 
-router.put("/like/:id", auth, async (req, res) => {
+router.put("/like/:id", async (req, res) => {
   const post = await Post.findById(req.params.id);
   if (!post) return res.status(400).send("Post doesn't exists");
   if (post.author == req.user._id)
