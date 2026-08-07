@@ -292,54 +292,123 @@ export default function AiCoachPage() {
   // Render assistant markdown content nicely
   const renderFormattedContent = (content) => {
     const lines = content.split('\n');
-    return lines.map((line, idx) => {
-      // H3 or H4 headers
-      if (line.startsWith('### ') || line.startsWith('#### ')) {
-        return (
-          <h4 key={idx} className="text-white font-bold text-base mt-4 mb-2 tracking-tight">
-            {line.replace(/^#{3,4}\s+/, '')}
+    const blocks = [];
+    let list = null; // { ordered, items: [] }
+
+    const flushList = () => {
+      if (!list) return;
+      const ListTag = list.ordered ? 'ol' : 'ul';
+      blocks.push(
+        <ListTag
+          key={`list-${blocks.length}`}
+          className={`my-2 ml-5 space-y-1 ${list.ordered ? 'list-decimal' : 'list-disc'}`}
+        >
+          {list.items.map((item, i) => (
+            <li key={i} className="text-[#A89C8D] leading-relaxed pl-1">
+              {formatInline(item)}
+            </li>
+          ))}
+        </ListTag>
+      );
+      list = null;
+    };
+
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+
+      // Bullets and numbered steps are collected so they land inside a real
+      // <ul>/<ol> instead of loose <li> elements.
+      const bullet = trimmed.match(/^[*-]\s+(.*)$/);
+      const numbered = trimmed.match(/^\d+[.)]\s+(.*)$/);
+
+      if (bullet || numbered) {
+        const ordered = Boolean(numbered);
+        if (!list || list.ordered !== ordered) {
+          flushList();
+          list = { ordered, items: [] };
+        }
+        list.items.push((bullet || numbered)[1]);
+        return;
+      }
+
+      flushList();
+
+      // Headings. These used to insert the raw line, so a heading written as
+      // "### **3. Cool-Down**" rendered its asterisks literally.
+      const heading = trimmed.match(/^(#{1,6})\s+(.*)$/);
+      if (heading) {
+        const level = heading[1].length;
+        const text = heading[2];
+        const Tag = level <= 2 ? 'h3' : 'h4';
+        return blocks.push(
+          <Tag
+            key={idx}
+            className={`text-white font-semibold tracking-tight ${
+              level <= 2 ? 'text-lg mt-5 mb-2' : 'text-base mt-4 mb-2'
+            }`}
+          >
+            {formatInline(text)}
+          </Tag>
+        );
+      }
+
+      if (/^(---+|\*\*\*+|___+)$/.test(trimmed)) {
+        return blocks.push(<hr key={idx} className="border-[#2B2723] my-4" />);
+      }
+
+      if (trimmed === '') {
+        return blocks.push(<div key={idx} className="h-2" />);
+      }
+
+      // A line that is entirely bold is how models often write a heading
+      // without using #, so treat it as one.
+      const boldOnly = trimmed.match(/^\*\*(.+)\*\*:?$/);
+      if (boldOnly) {
+        return blocks.push(
+          <h4 key={idx} className="text-white font-semibold text-base mt-4 mb-2 tracking-tight">
+            {formatInline(boldOnly[1])}
           </h4>
         );
       }
-      // H2 headers
-      if (line.startsWith('## ')) {
-        return (
-          <h3 key={idx} className="text-white font-bold text-lg mt-5 mb-2 tracking-tight">
-            {line.replace(/^##\s+/, '')}
-          </h3>
-        );
-      }
-      // Bullet items
-      if (line.trim().startsWith('* ') || line.trim().startsWith('- ')) {
-        const itemText = line.trim().replace(/^[\*\-]\s+/, '');
-        return (
-          <li key={idx} className="ml-4 list-disc text-[#A89C8D] my-1 leading-relaxed">
-            {formatBoldText(itemText)}
-          </li>
-        );
-      }
-      // Horizontal dividers
-      if (line.trim() === '---') {
-        return <hr key={idx} className="border-[#2B2723] my-4" />;
-      }
-      // Normal paragraph
-      if (line.trim() === '') {
-        return <div key={idx} className="h-2" />;
-      }
-      return (
+
+      blocks.push(
         <p key={idx} className="text-[#A89C8D] leading-relaxed my-1">
-          {formatBoldText(line)}
+          {formatInline(line)}
         </p>
       );
     });
+
+    flushList();
+    return blocks;
   };
 
-  // Format **bold** syntax into <strong>
-  const formatBoldText = (text) => {
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    return parts.map((part, i) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
+  /**
+   * Turns inline markdown into elements. Handles **bold**, *italic*, _italic_
+   * and `code` in a single pass — the previous version only understood **bold**,
+   * so italics rendered with their asterisks showing.
+   */
+  const formatInline = (text) => {
+    if (!text) return null;
+
+    // Bold is listed first so ** is consumed before a single * can match it.
+    const parts = text.split(/(\*\*[^*]+\*\*|\*[^*\n]+\*|_[^_\n]+_|`[^`\n]+`)/g);
+
+    return parts.filter(Boolean).map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
         return <strong key={i} className="text-white font-semibold">{part.slice(2, -2)}</strong>;
+      }
+      if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+        return (
+          <code key={i} className="bg-[#14120F] border border-[#2B2723] rounded px-1.5 py-0.5 text-[0.9em] text-white">
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      if (
+        ((part.startsWith('*') && part.endsWith('*')) || (part.startsWith('_') && part.endsWith('_'))) &&
+        part.length > 2
+      ) {
+        return <em key={i} className="italic text-[#C4B8A8]">{part.slice(1, -1)}</em>;
       }
       return part;
     });
