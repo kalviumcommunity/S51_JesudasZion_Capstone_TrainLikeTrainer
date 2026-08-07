@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────────────────────────────
+   Palette: a floodlit training ground at night.
+
+   The ground is a warm charcoal rather than a cold near-black —
+   pitch-side dark has brown and olive in it, not blue. Text is chalk.
+   Accents are not one arbitrary brand colour: each sport carries the
+   colour of its own real court or pitch markings, so the app is
+   organised chromatically by sport.
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  --ground: #14120f;
+  --surface: #1c1917;
+  --surface-hi: #232019;
+  --line: #2b2723;
+  --line-hi: #3a332c;
+  --chalk: #faf7f0;
+  --chalk-dim: #a89c8d;
+  --chalk-faint: #7a6f62;
+
+  /* Court and pitch markings. */
+  --sport-football: #5ba860;
+  --sport-basketball: #c8722f;
+  --sport-tennis: #cbd64b;
+  --sport-cricket: #d4c08a;
+  --sport-badminton: #4fa3a5;
+  --sport-volleyball: #4a79c4;
+  --sport-fitness: #9a8f80;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    background-color: var(--ground);
+    color: var(--chalk);
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 600;
+    /* Condensed faces already sit tight; negative tracking would jam them. */
+    letter-spacing: 0.005em;
+    line-height: 1.05;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--line-hi); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--chalk-faint); }
+
+  ::selection { background: #3a332c; color: var(--chalk); }
+
+  :focus-visible {
+    outline: 2px solid var(--chalk);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-mono), monospace;
+    @apply uppercase tracking-[0.14em] text-[11px] font-medium;
+    color: var(--chalk-faint);
+  }
+
+  /* Signature: a pitch marking. A sports hall carries overlapping painted
+     lines, one colour per sport sharing the floor — the same thing this
+     library does. Section headings sit on their sport's line. */
+  .touchline {
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .touchline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 64px;
+    height: 3px;
+    background: currentColor;
+    box-shadow: 0 6px 0 -1px var(--line);
+  }
+
+  /* Numbers you compare — reps, splits, durations — are set as data. */
+  .stat {
+    font-family: var(--font-mono), monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--line-hi);
+    @apply rounded-[20px] transition-all duration-200;
+  }
+  .card:hover {
+    background-color: var(--surface-hi);
+    border-color: var(--chalk-faint);
+  }
+
+  .btn-primary {
+    font-family: var(--font-body), sans-serif;
+    @apply px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200;
+    background: var(--chalk);
+    color: var(--ground);
+  }
+  .btn-primary:hover { background: #fff; }
+
+  .btn-ghost {
+    font-family: var(--font-body), sans-serif;
+    @apply bg-transparent px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200;
+    border: 1px solid var(--line-hi);
+    color: var(--chalk-dim);
+  }
+  .btn-ghost:hover {
+    border-color: var(--chalk-faint);
+    color: var(--chalk);
+  }
+
+  .prose-reader {
+    @apply leading-[1.85];
+    color: var(--chalk-dim);
+    font-family: var(--font-body), sans-serif;
+  }
+  .prose-reader h1, .prose-reader h2,
+  .prose-reader h3, .prose-reader h4 {
+    font-family: var(--font-display), sans-serif;
+    color: var(--chalk);
+    @apply mt-8 mb-4;
+  }
+  .prose-reader p { @apply mb-5; }
+  .prose-reader ul, .prose-reader ol { @apply pl-5 mb-4 space-y-2; }
+}

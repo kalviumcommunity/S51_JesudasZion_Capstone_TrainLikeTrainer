@@ -1,16 +1,18 @@
-
-
 import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
 
-const MODEL_NAME = "gemini-1.0-pro";
-const API_KEY = "AIzaSyC39GKfcMFJ2ShebTAxloG_6KUNR0dqlZg";
+const MODEL_NAME = "gemini-1.5-flash";
 
 async function runChat(prompt) {
-  const genAI = new GoogleGenerativeAI(API_KEY);
+  const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
+  if (!apiKey) {
+    return "API key not configured in environment variables.";
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
   const generationConfig = {
@@ -42,14 +44,12 @@ async function runChat(prompt) {
   const chat = model.startChat({
     generationConfig,
     safetySettings,
-    history: [
-    ],
+    history: [],
   });
 
   const result = await chat.sendMessage(prompt);
   const response = result.response;
-  console.log(response.text());
   return response.text();
 }
 
- export default runChat;
+export default runChat;
