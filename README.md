@@ -1,6 +1,6 @@
 # Train Like a Trainer
 
-**Live:** https://capestone-two.vercel.app
+**Live:** https://train-like-trainer.vercel.app
 
 A sports drill library organised the way a coach works — by sport, by position, and by the
 specific thing you're trying to fix.
