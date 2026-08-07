@@ -6,7 +6,6 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { Menu, X, LogIn, LogOut } from 'lucide-react';
 import { useTraining } from '@/context/TrainingContext';
 
-import { PixelStatusBadge } from '@/components/PixelAccents';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -36,12 +35,19 @@ export default function Navbar() {
     <nav className="w-full bg-[#14120F] border-b border-[#2B2723] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
         {/* Left: Logo */}
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-white font-medium text-sm tracking-wider hover:text-[#FFFFFF] transition-colors">
-            TLT
-          </Link>
-          <PixelStatusBadge status="live" text="HUD ON" size="sm" className="hidden sm:inline-flex" />
-        </div>
+        <Link href="/" className="flex items-center gap-2.5 group" aria-label="Train Like A Trainer — home">
+          {/* Served at 2x the rendered size so the monogram stays sharp. */}
+          <img
+            src="/logo.png"
+            alt=""
+            width={28}
+            height={28}
+            className="w-7 h-7 rounded-md"
+          />
+          <span className="font-display text-base font-semibold tracking-wide text-white uppercase hidden sm:inline group-hover:text-[#A89C8D] transition-colors">
+            Train Like A Trainer
+          </span>
+        </Link>
 
         {/* Center: Links (Desktop) */}
         <div className="hidden md:flex items-center gap-8 h-14">

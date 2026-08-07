@@ -28,9 +28,18 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL('https://train-like-trainer.vercel.app'),
   title: 'Train Like A Trainer — Position-specific drills, coached properly',
   description:
     'A drill library organised the way coaches actually think: by sport, by position, by what you are trying to fix. Every drill has a setup, an execution, the cues that matter and the mistakes to avoid.',
+  // app/icon.png and app/apple-icon.png are picked up automatically for the
+  // tab and home-screen icons; this is the sharing card image.
+  openGraph: {
+    title: 'Train Like A Trainer',
+    description: 'Position-specific drills, coached properly.',
+    images: ['/logo-512.png'],
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }) {
